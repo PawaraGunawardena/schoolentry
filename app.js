@@ -27,24 +27,14 @@ app.set('view engine', 'hbs');
 //Test for connections
 db.pool.getConnection((function(err, connection){
   if(err) throw err;
-
-  // connection.query('SELECT * FROM users', function (error, results, fields) {
-  //    console.log(results);
-  // });
-
-  //You can enter a JSON object into the database.
-  // var query = connection.query('INSERT INTO users  SET ?', user, function(error, results, fields){
-  //   if(error) throw error;
-  //
-  // });
-  // console.log(query.sql);
   console.log('Connection successful!');
   connection.release();
 }));
 
 //Testing of inserting a record.
-usermodel.insert('pamoda', 'pamodaspw');
-
+// usermodel.insert('pamoda', 'pamodaspw');
+// usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
+usermodel.view();
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
