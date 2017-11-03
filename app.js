@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var mysql  = require('mysql');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -9,18 +10,43 @@ var hbs = require('hbs');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
+var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var usermodel = require('./models/users');
 var app = express();
+
+var user = {username:'Oshada', password: 'oshadaspw'};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-//Partial Registry
+//Test for connections
+db.pool.getConnection((function(err, connection){
+  if(err) throw err;
+
+  // connection.query('SELECT * FROM users', function (error, results, fields) {
+  //    console.log(results);
+  // });
+
+  //You can enter a JSON object into the database.
+  // var query = connection.query('INSERT INTO users  SET ?', user, function(error, results, fields){
+  //   if(error) throw error;
+  //
+  // });
+  // console.log(query.sql);
+  console.log('Connection successful!');
+  connection.release();
+}));
+
+//Testing of inserting a record.
+usermodel.insert('pamoda', 'pamodaspw');
+
+
+//Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
 
 //Helper Registry
@@ -34,14 +60,7 @@ hbs.registerHelper(
     }
 );
 
-//Initializing the database.
-db.connect(db.MODE_PRODUCTION, function(err){
-  if(err) {
-    console.log(err);
-  }else {
-    console.log('Database connection successfull.');
-  }
-});
+
 //Adding middleware.
 app.use(logger('dev'));
 app.use(bodyParser.json());
