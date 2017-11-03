@@ -14,8 +14,9 @@ Check for ``package.json`` file for the packages used.
 CREATE TABLE users (
 id INT NOT NULL AUTO_INCREMENT,
 username VARCHAR(255),
-password VARCHAR(255)),
-PRIMARY KEY (id);
+password VARCHAR(255),
+PRIMARY KEY (id)
+);
 ```
 4. Run ``npm start`` to run the application.
 
