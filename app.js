@@ -10,6 +10,7 @@ var hbs = require('hbs');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
@@ -26,15 +27,16 @@ app.set('view engine', 'hbs');
 
 //Test for connections
 db.pool.getConnection((function(err, connection){
-  if(err) throw err;
-  console.log('Connection successful!');
-  connection.release();
+    if(err) throw err;
+    console.log('Connection successful!');
+    connection.release();
 }));
 
 //Testing of inserting a record.
-// usermodel.insert('pamoda', 'pamodaspw');
+// usermodel.insert('username', 'password');
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
-usermodel.view();
+// usermodel.view();
+// usermodel.test('dasunpubudumal');
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
@@ -59,55 +61,62 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: true
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-    var namespace = param.split('.')
-    , root = namespace.shift()
-    , formParam = root;
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+            , root = namespace.shift()
+            , formParam = root;
 
-  while(namespace.length) {
-    formParam += '[' + namespace.shift() + ']';
-  }
-  return {
-    param: formParam,
-    msg: msg,
-    value: value
-  };
-  }
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
 }));
 app.use(flash());
 app.use(function(req, res, next) {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
 });
+
+//Require the passport initialization file.
+require('./config/passport')(passport);
+
 //Setting controllers.
 app.use('/', index);
-app.use('/users', users);
+
+//Setting user controller
+var userRoutes = require('./routes/users')(app, express, passport);
+app.use('/users', userRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

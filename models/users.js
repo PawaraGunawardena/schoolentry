@@ -1,7 +1,6 @@
 var db = require('../config/db');
 var bcrypt = require('bcryptjs');
 var mysqlJson = require('mysql-json');
-
 // Usual query injection.
 // connection.query('SELECT * FROM users', function (error, results, fields) {
 //    console.log(results);
@@ -63,8 +62,28 @@ exports.view = function (done) {
             console.log(JSON.stringify(results));
         });
         console.log('Select query: ' + query.sql);
-        console.log('Users viewd!');
+        console.log('Users viewed!');
         connection.release();
 
+    });
+};
+
+// exports.getUser = function (username, done) {
+//     var user;
+//     db.pool.getConnection(function (err, connection) {
+//         if(err) throw err;
+//         var query = connection.query('SELECT id, username, password FROM users WHERE username = ?', username, function (error, results) {
+//             user = JSON.stringify(results);
+//         })
+//     });
+//     return user;
+// };
+
+exports.test = function (username, done) {
+    db.pool.getConnection(function (err, connection) {
+        if(err) throw err;
+        var query = connection.query('SELECT * FROM users WHERE username = ?', username, function (error, rows) {
+           console.log('Password is: ' + rows[0].password); //This will return the password.
+        });
     });
 };

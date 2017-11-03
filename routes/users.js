@@ -1,9 +1,19 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function (app, express, passport) {
+  var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+    router.get('/', function(req, res, next) {
+        res.send('respond with a resource');
+    });
 
-module.exports = router;
+    router.get('/login', function (req, res, next) {
+        res.render('login', {title: 'Login'});
+    });
+
+    router.post('/login', passport.authenticate('local-login', {
+        successRedirect: '/profile',
+        faliureRedirect: '/users/login',
+        faliureFlash: true
+    }));
+
+  return router;
+};
