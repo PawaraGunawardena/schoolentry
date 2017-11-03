@@ -11,8 +11,8 @@ module.exports = function (app, express, passport) {
 
     router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/profile',
-        faliureRedirect: '/users/login',
-        faliureFlash: true
+        failureRedirect: '/users/login',
+        failureFlash: true
     }));
 
   return router;
