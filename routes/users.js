@@ -9,8 +9,12 @@ module.exports = function (app, express, passport) {
         res.render('login', {title: 'Login'});
     });
 
+    router.get('/userprofile', function (req, res, next) {
+        res.render('userprofile', {title: 'Profile'})
+    })
+
     router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
+        successRedirect: '/users/userprofile',
         failureRedirect: '/users/login',
         failureFlash: true
     }));
