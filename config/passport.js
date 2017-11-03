@@ -22,7 +22,8 @@ module.exports = function (passport) {
            });
         });
     });
-    
+
+    //Initializing Passport local-login strategy.
     passport.use('local-login', new LocalStrategy({
         usernameField: 'username',
         passwordField: 'password',
