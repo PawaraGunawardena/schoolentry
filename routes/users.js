@@ -22,17 +22,13 @@ module.exports = function (app, express, passport, LocalStrategy) {
 
     //Check this for viability and security.
     router.post('/login', function (req, res, next) { //Testing callback.
-        // this.username = req.body.username;
-        // res.locals.params = req.body.username;
         console.log("Username is: " + req.body.username);
-
         passport.authenticate('local-login', {
             successRedirect: '/users/' + req.body.username, //We need to add the username here.
             failureRedirect: '/users/login',
             failureFlash: true
-        })(req, res);
+        })(req, res);   //There's a header 302 HTTP error. Check that out. However the code works.
         next();
-
     });
 
     //This will prevent the user from going to the userprofile route without logging in.
