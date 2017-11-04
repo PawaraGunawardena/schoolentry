@@ -1,5 +1,7 @@
 var bodyParser = require('body-parser');
 var path = require('path');
+var db = require('../config/db');
+var usermodel = require('../models/users');
 
 module.exports = function (app, express, passport, LocalStrategy) {
     var router = express.Router();
@@ -13,10 +15,23 @@ module.exports = function (app, express, passport, LocalStrategy) {
         res.sendFile(path.join(__dirname, '/../pages/loginpage.html'));
     });
 
+    router.get('/signup', function (req, res, next) {
+       res.render('signup');
+    });
+
+    router.post('/signup', function (req, res, next) {
+        if(req.body.password == req.body.confirmpassword) {
+            usermodel.insert(req.body.username, req.body.password);
+            res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+        } else {
+            console.log('Password mismatch!');
+        }
+    });
+
     //authenticationMiddleware() is a route handler which acts as a express middleware.
     //Check for Express Routing documentation for more details.
-    router.get('/:username', authenticationMiddleware(), function (req, res, next) {
-        res.render('' + req.params.username, {
+    router.get('/userprofile/:username', authenticationMiddleware(), function (req, res, next) {
+        res.render('userprofile', {
             username: req.params.username,
             title: 'Welcome, '+ req.params.username
         });
@@ -26,7 +41,7 @@ module.exports = function (app, express, passport, LocalStrategy) {
     router.post('/login', function (req, res, next) { //Testing callback.
         console.log("Username is: " + req.body.username);
         passport.authenticate('local-login', {
-            successRedirect: '/users/' + req.body.username, //We need to add the username here.
+            successRedirect: '/users/userprofile/' + req.body.username, //We need to add the username here.
             failureRedirect: '/users/login',
             failureFlash: true
         })(req, res);   //There's a header 302 HTTP error. Check that out. However the code works.

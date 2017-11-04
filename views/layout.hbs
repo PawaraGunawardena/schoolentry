@@ -11,16 +11,20 @@
 
 </head>
 <body>
-{{> navbar}}
-<div class="container-fluid">
-    <div class="row">
-        {{> sidebar}}
-        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-            {{{body}}}
-        </main>
-    </div>
-</div>
+    <!--NavigationBar-->
+    {{> navbar}}
 
+    <!--Body and the sidebar-->
+    <div class="container-fluid">
+        <div class="row">
+            {{> sidebar}}
+            <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                {{{body}}}
+            </main>
+        </div>
+    </div>
+
+    <!--Scripts-->
     <script src="/js/bootstrap.min.js"></script>
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/angular/angular.min.js"></script>
