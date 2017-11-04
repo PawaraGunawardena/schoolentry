@@ -17,7 +17,10 @@ module.exports = function (app, express, passport, LocalStrategy) {
     router.get('/:username', authenticationMiddleware(), function (req, res, next) {
         // console.log(bodyParser.json(req));
         // res.render(req.params.username);
-        res.render('' + req.params.username);
+        res.render('' + req.params.username, {
+            username: req.params.username,
+            title: 'Welcome, '+ req.params.username
+        });
     });
 
     //Check this for viability and security.
