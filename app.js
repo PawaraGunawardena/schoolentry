@@ -92,13 +92,13 @@ app.use(function(req, res, next) {
 });
 
 //Require the passport initialization file.
-require('./config/passport')(passport);
+require('./config/passport')(passport, LocalStrategy);
 
 //Setting controllers.
 app.use('/', index);
 
 //Setting user controller
-var userRoutes = require('./routes/users')(app, express, passport);
+var userRoutes = require('./routes/users')(app, express, passport, LocalStrategy);
 app.use('/users', userRoutes);
 
 // catch 404 and forward to error handler

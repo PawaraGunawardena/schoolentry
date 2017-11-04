@@ -7,7 +7,7 @@ var user = require('../models/users');
 var flash = require('connect-flash');
 var db = require('./db');
 
-module.exports = function (passport) {
+module.exports = function (passport, LocalStrategy) {
 
     //This will create a session for logins.
     passport.serializeUser(function (user, done) {
