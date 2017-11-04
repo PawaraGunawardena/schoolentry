@@ -2,17 +2,24 @@ var db = require('../config/db');
 var bcrypt = require('bcryptjs');
 var mysqlJson = require('mysql-json');
 
-// Usual query injection.
-// connection.query('SELECT * FROM users', function (error, results, fields) {
-//    console.log(results);
-// });
+/*
+Usual query injections
+-----------------------
+=================================================================================================
+connection.query('SELECT * FROM users', function (error, results, fields) {
+    console.log(results);
+});
 
-//You can enter a JSON object into the database.
-// var query = connection.query('INSERT INTO users  SET ?', user, function(error, results, fields){
-//   if(error) throw error;
-//
-// });
-// console.log(query.sql);
+You can enter a JSON object into the database. Refer to the following example.
+
+var query = connection.query('INSERT INTO users  SET ?', user, function(error, results, fields){
+    if(error) throw error;
+});
+console.log(query.sql);
+
+@Author - Dasun Pubudumal
+==================================================================================================
+ */
 
 exports.insert = function(username, password, done){
     bcrypt.hash(password, 8, function (err, hash) {

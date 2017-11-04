@@ -1,10 +1,10 @@
 module.exports = function (app, express, passport) {
     var router = express.Router();
-
+    //Root user route
     router.get('/', function(req, res, next) {
         res.send('respond with a resource');
     });
-
+    
     router.get('/login', function (req, res, next) {
         res.render('login', {title: 'Login'});
     });
@@ -19,6 +19,7 @@ module.exports = function (app, express, passport) {
         failureFlash: true
     }));
 
+    //This will prevent the user from going to the userprofile route without logging in.
     function authenticationMiddleware() {
         return function (req, res, next) {
             if(req.isAuthenticated()) {
@@ -27,6 +28,6 @@ module.exports = function (app, express, passport) {
                 res.send('User not verified!');
             }
         }
-    };
+    }
     return router;
 };
