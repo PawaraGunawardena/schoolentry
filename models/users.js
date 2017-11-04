@@ -21,6 +21,7 @@ console.log(query.sql);
 ==================================================================================================
  */
 
+//Add new users.
 exports.insert = function(username, password, done){
     bcrypt.hash(password, 8, function (err, hash) {
         var user = {username: username, password: hash};
@@ -36,6 +37,7 @@ exports.insert = function(username, password, done){
     });
 };
 
+//Remove users.
 exports.remove = function (username, done) {
     db.pool.getConnection(function (err, connection) {
         if(err) throw err;
@@ -47,6 +49,7 @@ exports.remove = function (username, done) {
     })
 };
 
+//Update user profiles.
 exports.update = function (oldusername, username, password, done) {
     bcrypt.hash(password, 8, function (err, hash) {
         db.pool.getConnection(function (err, connection) {
@@ -76,6 +79,7 @@ exports.view = function (done) {
     });
 };
 
+//This is a test function.
 exports.test = function (username, done) {
     db.pool.getConnection(function (err, connection) {
         if(err) throw err;
