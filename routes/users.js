@@ -10,7 +10,7 @@ module.exports = function (app, express, passport, LocalStrategy) {
 
     router.get('/login', function (req, res, next) {
         // res.render('login', {title: 'Login'});
-        res.sendFile(path.join(__dirname+ '/../index.html'));
+        res.sendFile(path.join(__dirname, '/../pages/loginpage.html'));
     });
 
     //authenticationMiddleware() is a route handler which acts as a express middleware.
