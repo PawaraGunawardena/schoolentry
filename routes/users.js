@@ -1,4 +1,5 @@
 var bodyParser = require('body-parser');
+var path = require('path');
 
 module.exports = function (app, express, passport, LocalStrategy) {
     var router = express.Router();
@@ -8,7 +9,8 @@ module.exports = function (app, express, passport, LocalStrategy) {
     });
 
     router.get('/login', function (req, res, next) {
-        res.render('login', {title: 'Login'});
+        // res.render('login', {title: 'Login'});
+        res.sendFile(path.join(__dirname+ '/../index.html'));
     });
 
     //authenticationMiddleware() is a route handler which acts as a express middleware.
