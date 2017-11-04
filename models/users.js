@@ -35,6 +35,7 @@ exports.insert = function(username, password, done){
             connection.release();
         });
     });
+
 };
 
 //Remove users.

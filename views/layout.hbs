@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>{{title}}</title>
-    {{!-- Front end frameworks and scripts --}}
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <!--Had to grab bootstrap from the source because the npm package was corrupted.-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/animate.css/animate.min.css">
-    <link rel="stylesheet" href="/xel/stylesheets/material.theme.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <!--Custom sections for each view-->
+    {{{_sections.head}}}
+
+</head>
+<body>
+{{> navbar}}
+<div class="container-fluid">
+    <div class="row">
+        {{> sidebar}}
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+            {{{body}}}
+        </main>
+    </div>
+</div>
+
     <script src="/jquery/dist/jquery.min.js"></script>
     <script src="/angular/angular.min.js"></script>
 
-    <!--Custom sections for each view-->
-    {{{_sections.head}}}
-  </head>
-  <body>
-    {{{body}}}
-
-    <!--Custom scripts for each view-->
-    {{{_sections.script}}}
-  </body>
+</body>
 </html>
