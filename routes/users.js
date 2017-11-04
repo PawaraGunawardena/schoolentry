@@ -1,5 +1,5 @@
 module.exports = function (app, express, passport) {
-  var router = express.Router();
+    var router = express.Router();
 
     router.get('/', function(req, res, next) {
         res.send('respond with a resource');
@@ -9,9 +9,9 @@ module.exports = function (app, express, passport) {
         res.render('login', {title: 'Login'});
     });
 
-    router.get('/userprofile', function (req, res, next) {
-        res.render('userprofile', {title: 'Profile'})
-    })
+    router.get('/userprofile', authenticationMiddleware(), function (req, res, next) {
+        res.render('userprofile');
+    });
 
     router.post('/login', passport.authenticate('local-login', {
         successRedirect: '/users/userprofile',
@@ -19,5 +19,14 @@ module.exports = function (app, express, passport) {
         failureFlash: true
     }));
 
-  return router;
+    function authenticationMiddleware() {
+        return function (req, res, next) {
+            if(req.isAuthenticated()) {
+                return next();
+            } else {
+                res.send('User not verified!');
+            }
+        }
+    };
+    return router;
 };
