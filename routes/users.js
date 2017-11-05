@@ -16,7 +16,7 @@ module.exports = function (app, express, passport, LocalStrategy) {
     });
 
     router.get('/signup', function (req, res, next) {
-       res.render('signup');
+        res.render('signup');
     });
 
     router.post('/signup', function (req, res, next) {
@@ -37,7 +37,8 @@ module.exports = function (app, express, passport, LocalStrategy) {
         });
     });
 
-    //Check this for viability and security.
+
+    // //Check this for viability and security.
     router.post('/login', function (req, res, next) { //Testing callback.
         console.log("Username is: " + req.body.username);
         passport.authenticate('local-login', {
