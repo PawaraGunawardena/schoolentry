@@ -7,7 +7,7 @@ Check for ``package.json`` file for the packages used.
 **Running the application**
 
 1. Clone the project and run ``npm install`` in the root folder.
-2. Create a database (in my case I have created the database *schooldbms* )  and change the ``config/db.js`` file accordingly.3. Execute the following SQL query to create the `users` table in the database.
+2. Create a database (in my case I have created the database *schooldbms* )  and change the ``config/db.js`` file accordingly.
 3. Run ``npm start`` to run the application.
 4. Navigate to ``localhost:3000`` and click on **Administrator Login**.
 5. Enter one of the users' credentials. These credentials must be there in the database. Thus we will use *username* as username, and *password* as password.

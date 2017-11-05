@@ -37,7 +37,6 @@ module.exports = function (app, express, passport, LocalStrategy) {
         });
     });
 
-
     // //Check this for viability and security.
     router.post('/login', function (req, res, next) { //Testing callback.
         console.log("Username is: " + req.body.username);
@@ -45,7 +44,7 @@ module.exports = function (app, express, passport, LocalStrategy) {
             successRedirect: '/users/userprofile/' + req.body.username, //We need to add the username here.
             failureRedirect: '/users/login',
             failureFlash: true
-        })(req, res);   //There's a header 302 HTTP error. Check that out. However the code works.
+        })(req, res, next);   //There's a header 302 HTTP error. Check that out. However the code works.
         next();
     });
 
@@ -53,7 +52,7 @@ module.exports = function (app, express, passport, LocalStrategy) {
     function authenticationMiddleware() {
         return function (req, res, next) {
             if(req.isAuthenticated()) {
-                return next();
+                next();
             } else {
                 res.send('User not verified!');
             }

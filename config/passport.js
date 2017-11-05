@@ -5,7 +5,6 @@ var mysql = require('mysql');
 var db = require('./db');
 var user = require('../models/users');
 var flash = require('connect-flash');
-var db = require('./db');
 
 module.exports = function (passport, LocalStrategy) {
 
@@ -45,6 +44,7 @@ module.exports = function (passport, LocalStrategy) {
                    }
                });
            });
+            connection.release();
         });
     }));
 };

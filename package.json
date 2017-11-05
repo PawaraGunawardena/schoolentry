@@ -30,6 +30,7 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
+    "path": "^0.12.7",
     "serve-favicon": "~2.4.5",
     "xel": "0.0.63"
   }
