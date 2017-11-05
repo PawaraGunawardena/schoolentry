@@ -2,6 +2,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var db = require('../config/db');
 var usermodel = require('../models/users');
+var session = require('express-session');
 
 module.exports = function (app, express, passport, LocalStrategy) {
     var router = express.Router();
@@ -20,6 +21,7 @@ module.exports = function (app, express, passport, LocalStrategy) {
     });
 
     router.post('/signup', function (req, res, next) {
+        req.logout();
         if(req.body.password == req.body.confirmpassword) {
             usermodel.insert(req.body.username, req.body.password);
             res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
@@ -45,7 +47,6 @@ module.exports = function (app, express, passport, LocalStrategy) {
             failureRedirect: '/users/login',
             failureFlash: true
         })(req, res, next);   //There's a header 302 HTTP error. Check that out. However the code works.
-        next();
     });
 
     //This will prevent the user from going to the userprofile route without logging in.
