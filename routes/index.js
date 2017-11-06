@@ -5,7 +5,7 @@ var path = require('path');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // res.render('index', { title: 'Express' });
-    res.sendFile(path.join(__dirname + '/../index.html'));
+    res.sendFile(path.join(__dirname + '/../pages/home.html'));
 });
 
 router.get('/register', function(req, res, next) {
