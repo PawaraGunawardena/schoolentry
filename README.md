@@ -16,6 +16,30 @@ Check for ``package.json`` file for the packages used.
 7. Click on *Add a user* and enter the credentials.
 8. Once you submit the *Add a user* form, you will be prompted to log in again (For testing purposes. We can always change it). Try logging with the credentials of the new user you have entered.
 
+
+**Connection Pooling**
+
+ Establishing connections everytime a query is executed is an expensive operation.
+
+* Application Server enables administrators to establish a pool of backend connections
+that applications can share on an application server
+
+* It essentially creates a pool of database connections so that the user can get use of. This
+speeds up the operation while giving a higher aspect of security. Response time is minimized. It is
+said that the performance raises up to 20 times than that of normal db connection procedures.
+
+* This was initially a technique used in JDBC.
+
+* Since NodeJs is the major player in the web-industry these days, it was introduced inside the mysql driver
+in Node Packages.
+
+*For more info, visit,*
+
+1. [IBM official website - Connection Pooling](https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/cdat_conpool.html)
+2. [Geek Explains blogpost on Connection Pooling](http://geekexplains.blogspot.com/2008/06/what-is-connection-pooling-why-do-we.html)
+
+
+
 **Documentations**
 
 * [NodeJs](https://nodejs.org/docs/latest-v7.x/api/)
