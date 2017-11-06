@@ -22,10 +22,10 @@ console.log(query.sql);
  */
 
 //Add new users.
-exports.insert = function(username, password, done){
+exports.insert = function(username, password, pool, done){
     bcrypt.hash(password, 8, function (err, hash) {
         var user = {username: username, password: hash};
-        db.pool.getConnection(function (err, connection) {
+        pool.getConnection(function (err, connection) {
             if (err) throw err;
             var query = connection.query('INSERT INTO users SET ?', user, function (error, results) {
                 if(error) throw error;
@@ -39,8 +39,8 @@ exports.insert = function(username, password, done){
 };
 
 //Remove users.
-exports.remove = function (username, done) {
-    db.pool.getConnection(function (err, connection) {
+exports.remove = function (username, pool, done) {
+   pool.getConnection(function (err, connection) {
         if(err) throw err;
         var query = connection.query('DELETE FROM users WHERE username = ?', username, function (error, results) {
             if(error) throw error;
@@ -51,9 +51,9 @@ exports.remove = function (username, done) {
 };
 
 //Update user profiles.
-exports.update = function (oldusername, username, password, done) {
+exports.update = function (oldusername, username, password, pool, done) {
     bcrypt.hash(password, 8, function (err, hash) {
-        db.pool.getConnection(function (err, connection) {
+        pool.getConnection(function (err, connection) {
             if (err) throw err;
             var query = connection.query('UPDATE users SET username = ?, password = ? WHERE username = ?', [username, hash, oldusername], function (error, results) {
                 if(error) throw error;
@@ -67,8 +67,8 @@ exports.update = function (oldusername, username, password, done) {
 
 // This query is not that much important.
 //This query was written just to take an idea on how to convert a SELECT query into a JSON format.
-exports.view = function (done) {
-    db.pool.getConnection(function (err,  connection) {
+exports.view = function (pool, done) {
+    pool.getConnection(function (err,  connection) {
         if(err) throw err;
         var query = connection.query('SELECT id, username FROM users', function (error, results) {
             console.log(JSON.stringify(results));
@@ -82,7 +82,7 @@ exports.view = function (done) {
 
 //This is a test function.
 exports.test = function (username, done) {
-    db.pool.getConnection(function (err, connection) {
+   pool.getConnection(function (err, connection) {
         if(err) throw err;
         var query = connection.query('SELECT * FROM users WHERE username = ?', username, function (error, rows) {
            console.log('Password is: ' + rows[0].password); //This will return the password.

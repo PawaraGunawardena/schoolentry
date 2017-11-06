@@ -4,6 +4,10 @@ var mysql = require('mysql')
 var PRODUCTION_DB = 'schooldbms'
     , TEST_DB = 'schooldbms';
 
+/*
+
+ */
+
 exports. pool = mysql.createPool({
     host: 'localhost',
     user: 'root',

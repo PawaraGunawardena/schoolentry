@@ -17,6 +17,7 @@ var db = require('./config/db');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
+var connectionPool = db.pool;
 var app = express();
 
 var user = {username:'Oshada', password: 'oshadaspw'};
@@ -26,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 //Test for connections
-db.pool.getConnection((function(err, connection){
+connectionPool.getConnection((function(err, connection){
     if(err) throw err;
     console.log('Connection successful!');
     connection.release();
@@ -92,13 +93,13 @@ app.use(function(req, res, next) {
 });
 
 //Require the passport initialization file.
-require('./config/passport')(passport, LocalStrategy);
+require('./config/passport')(passport,connectionPool, LocalStrategy);
 
 //Setting controllers.
 app.use('/', index);
 
 //Setting user controller
-var userRoutes = require('./routes/users')(app, express, passport, LocalStrategy);
+var userRoutes = require('./routes/users')(app, express, passport, connectionPool, LocalStrategy);
 app.use('/users', userRoutes);
 
 // catch 404 and forward to error handler

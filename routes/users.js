@@ -4,8 +4,10 @@ var db = require('../config/db');
 var usermodel = require('../models/users');
 var session = require('express-session');
 
-module.exports = function (app, express, passport, LocalStrategy) {
+module.exports = function (app, express, passport, pool, LocalStrategy) {
+
     var router = express.Router();
+
     //Root user route
     router.get('/', function(req, res, next) {
         res.send('respond with a resource');
@@ -23,8 +25,8 @@ module.exports = function (app, express, passport, LocalStrategy) {
     router.post('/signup', function (req, res, next) {
         req.logout();
         if(req.body.password == req.body.confirmpassword) {
-            usermodel.insert(req.body.username, req.body.password);
-            res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+            usermodel.insert(req.body.username, req.body.password, pool);
+            res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));    //Try to redirect this to users' page
         } else {
             console.log('Password mismatch!');
         }
@@ -39,14 +41,13 @@ module.exports = function (app, express, passport, LocalStrategy) {
         });
     });
 
-    // //Check this for viability and security.
-    router.post('/login', function (req, res, next) { //Testing callback.
+    router.post('/login', function (req, res, next) {
         console.log("Username is: " + req.body.username);
         passport.authenticate('local-login', {
-            successRedirect: '/users/userprofile/' + req.body.username, //We need to add the username here.
+            successRedirect: '/users/userprofile/' + req.body.username,
             failureRedirect: '/users/login',
             failureFlash: true
-        })(req, res, next);   //There's a header 302 HTTP error. Check that out. However the code works.
+        })(req, res, next);
     });
 
     //This will prevent the user from going to the userprofile route without logging in.
@@ -59,5 +60,6 @@ module.exports = function (app, express, passport, LocalStrategy) {
             }
         }
     }
+
     return router;
 };

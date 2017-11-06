@@ -6,7 +6,7 @@ var db = require('./db');
 var user = require('../models/users');
 var flash = require('connect-flash');
 
-module.exports = function (passport, LocalStrategy) {
+module.exports = function (passport, pool, LocalStrategy) {
 
     //This will create a session for logins.
     passport.serializeUser(function (user, done) {
@@ -15,7 +15,7 @@ module.exports = function (passport, LocalStrategy) {
 
     //This will remove login sessions from a user.
     passport.deserializeUser(function (id, done) {
-        db.pool.getConnection(function (error, connection) {
+        pool.getConnection(function (error, connection) {
            connection.query('SELECT * FROM users WHERE id = ?', id, function (err, rows) {
                done(err, rows[0]);
            });
@@ -28,7 +28,7 @@ module.exports = function (passport, LocalStrategy) {
         passwordField: 'password',
         passReqToCallback: true
     }, function (req, username, password, done) {
-        db.pool.getConnection(function (err, connection) {
+        pool.getConnection(function (err, connection) {
            if(err) throw err;
            var query = connection.query('SELECT * from users WHERE username = ?', username, function (err, rows) {
               if(err) return done(err);
@@ -44,7 +44,7 @@ module.exports = function (passport, LocalStrategy) {
                    }
                });
            });
-            connection.release();
+            connection.release();   //Release the database connection pool.
         });
     }));
 };
