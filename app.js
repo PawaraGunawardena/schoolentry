@@ -39,6 +39,8 @@ connectionPool.getConnection((function(err, connection){
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
 // usermodel.insert('dotty', 'dotty', 'school_admin', connectionPool);
+// usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
+
 
 usermodel.getUserType('dotty',connectionPool).then(function (rows) {
     console.log(rows[0].user_type);
