@@ -54,6 +54,13 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         })(req, res, next);
     });
 
+    router.get('/logout', function (req, res, next) {
+        req.session.destroy(function (err) {
+            res.redirect('/')
+        });
+    });
+
+
     //This will prevent the user from going to the userprofile route without logging in.
     function authenticationMiddleware() {
         return function (req, res, next) {
