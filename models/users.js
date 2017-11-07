@@ -99,7 +99,7 @@ exports.getUserType = function(username, pool, done){
 };
 */
 
-exports.sample = function (pool) {
+exports.getUserType = function (username, pool) {
   return new Promise(fn);
 
   function fn(resolve, reject) {
@@ -107,7 +107,7 @@ exports.sample = function (pool) {
          if(error){
              return reject(error)
          }else {
-             connection.query('SELECT * FROM users', function (err, rows) {
+             connection.query('SELECT * FROM users WHERE username = ?',username, function (err, rows) {
                  if(err) {
                      return reject(err);
                  }else {

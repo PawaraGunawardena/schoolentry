@@ -40,8 +40,8 @@ connectionPool.getConnection((function(err, connection){
 // usermodel.test('dasunpubudumal');
 // usermodel.insert('dotty', 'dotty', 'school_admin', connectionPool);
 
-usermodel.sample(connectionPool).then(function (rows) {
-    console.log(rows);
+usermodel.getUserType('dotty',connectionPool).then(function (rows) {
+    console.log(rows[0].user_type);
 }).catch(function (err) {
     console.log(err);
 });
