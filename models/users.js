@@ -80,6 +80,7 @@ exports.view = function (pool, done) {
     });
 };
 
+/*
 exports.getUserType = function(username, pool, done){
     var user_type = '';
     pool.getConnection(function (err, connection) {
@@ -95,6 +96,28 @@ exports.getUserType = function(username, pool, done){
        connection.release();
     });
     return user_type;
+};
+*/
+
+exports.sample = function (pool) {
+  return new Promise(fn);
+
+  function fn(resolve, reject) {
+      pool.getConnection(function (error, connection) {
+         if(error){
+             return reject(error)
+         }else {
+             connection.query('SELECT * FROM users', function (err, rows) {
+                 if(err) {
+                     return reject(err);
+                 }else {
+                     connection.release();
+                     return resolve(rows);
+                 }
+             })
+         }
+      });
+  }
 };
 
 //This is a test function.

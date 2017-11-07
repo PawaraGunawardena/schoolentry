@@ -34,14 +34,17 @@ connectionPool.getConnection((function(err, connection){
 }));
 
 //Testing of of models.
-// usermodel.insert('username', 'password');
+// usermodel.insert('nalaka', 'nalaka');
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
 // usermodel.insert('dotty', 'dotty', 'school_admin', connectionPool);
-// console.log(usermodel.getUserType('dotty', connectionPool));
 
-
+usermodel.sample(connectionPool).then(function (rows) {
+    console.log(rows);
+}).catch(function (err) {
+    console.log(err);
+});
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');

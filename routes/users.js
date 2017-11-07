@@ -35,8 +35,8 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     //authenticationMiddleware() is a route handler which acts as a express middleware.
     //Check for Express Routing documentation for more details.
     router.get('/userprofile/:username', authenticationMiddleware(), function (req, res, next) {
-        console.log(usermodel.getUserType(req.params.username, pool));
-        res.render(usermodel.getUserType(req.params.username, pool) , {
+        // console.log(usermodel.getUserType(req.params.username, pool));
+        res.render('userprofile' , {
             username: req.params.username,
             title: 'Welcome, '+ req.params.username
         });
