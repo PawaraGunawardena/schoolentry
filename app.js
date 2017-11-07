@@ -33,11 +33,15 @@ connectionPool.getConnection((function(err, connection){
     connection.release();
 }));
 
-//Testing of inserting a record.
+//Testing of of models.
 // usermodel.insert('username', 'password');
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
+// usermodel.insert('dotty', 'dotty', 'school_admin', connectionPool);
+// console.log(usermodel.getUserType('dotty', connectionPool));
+
+
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
@@ -99,7 +103,7 @@ require('./config/passport')(passport,connectionPool, LocalStrategy);
 app.use('/', index);
 
 //Setting user controller
-var userRoutes = require('./routes/users')(app, express, passport, connectionPool, LocalStrategy);
+var userRoutes = require('./routes/users')(app, express, passport, connectionPool, usermodel, LocalStrategy);
 app.use('/users', userRoutes);
 
 // catch 404 and forward to error handler

@@ -1,7 +1,7 @@
 var db = require('../config/db');
 var bcrypt = require('bcryptjs');
 var mysqlJson = require('mysql-json');
-
+var async = require('async');
 /*
 Usual query injections
 -----------------------
@@ -22,9 +22,9 @@ console.log(query.sql);
  */
 
 //Add new users.
-exports.insert = function(username, password, pool, done){
+exports.insert = function(username, password, user_type, pool, done){
     bcrypt.hash(password, 8, function (err, hash) {
-        var user = {username: username, password: hash};
+        var user = {username: username, password: hash, user_type: user_type};
         pool.getConnection(function (err, connection) {
             if (err) throw err;
             var query = connection.query('INSERT INTO users SET ?', user, function (error, results) {
@@ -78,6 +78,23 @@ exports.view = function (pool, done) {
         connection.release();
 
     });
+};
+
+exports.getUserType = function(username, pool, done){
+    var user_type = '';
+    pool.getConnection(function (err, connection) {
+       if(err) throw err;
+       else{
+           console.log('Executing user type find...');
+           var query = connection.query('SELECT user_type FROM users WHERE username = ?', username, function (error, rows) {
+               user_type = rows[0].user_type;
+               // console.log('User type is: ', rows[0].user_type);
+               // setVal(rows[0].user_type, user_type);
+           });
+       }
+       connection.release();
+    });
+    return user_type;
 };
 
 //This is a test function.

@@ -4,7 +4,7 @@ var db = require('../config/db');
 var usermodel = require('../models/users');
 var session = require('express-session');
 
-module.exports = function (app, express, passport, pool, LocalStrategy) {
+module.exports = function (app, express, passport, pool, usermodel, LocalStrategy) {
 
     var router = express.Router();
 
@@ -35,7 +35,8 @@ module.exports = function (app, express, passport, pool, LocalStrategy) {
     //authenticationMiddleware() is a route handler which acts as a express middleware.
     //Check for Express Routing documentation for more details.
     router.get('/userprofile/:username', authenticationMiddleware(), function (req, res, next) {
-        res.render('userprofile', {
+        console.log(usermodel.getUserType(req.params.username, pool));
+        res.render(usermodel.getUserType(req.params.username, pool) , {
             username: req.params.username,
             title: 'Welcome, '+ req.params.username
         });
