@@ -80,25 +80,6 @@ exports.view = function (pool, done) {
     });
 };
 
-/*
-exports.getUserType = function(username, pool, done){
-    var user_type = '';
-    pool.getConnection(function (err, connection) {
-       if(err) throw err;
-       else{
-           console.log('Executing user type find...');
-           var query = connection.query('SELECT user_type FROM users WHERE username = ?', username, function (error, rows) {
-               user_type = rows[0].user_type;
-               // console.log('User type is: ', rows[0].user_type);
-               // setVal(rows[0].user_type, user_type);
-           });
-       }
-       connection.release();
-    });
-    return user_type;
-};
-*/
-
 exports.getUserType = function (username, pool) {
   return new Promise(fn);
 

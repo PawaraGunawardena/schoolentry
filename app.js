@@ -23,7 +23,12 @@ var app = express();
 var user = {username:'Oshada', password: 'oshadaspw'};
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views',
+    [
+        path.join(__dirname, 'views'),
+        path.join(__dirname, 'views/users')
+    ]
+);
 app.set('view engine', 'hbs');
 
 //Test for connections

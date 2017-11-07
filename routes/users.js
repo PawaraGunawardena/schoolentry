@@ -36,7 +36,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     //Check for Express Routing documentation for more details.
     router.get('/userprofile/:username', authenticationMiddleware(), function (req, res, next) {
         usermodel.getUserType(req.params.username, pool).then(function (rows) {
-            res.render( rows[0].user_type , {
+            res.render(rows[0].user_type , {
                 username: req.params.username.charAt(0).toUpperCase() + req.params.username.slice((1)),
                 title: 'Welcome, '+ req.params.username
             });
