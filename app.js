@@ -44,7 +44,7 @@ connectionPool.getConnection((function(err, connection){
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
-usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
+//usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
 // usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
 
 // //Test Promise Execution
