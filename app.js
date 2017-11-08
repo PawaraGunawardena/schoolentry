@@ -18,6 +18,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
 var guardianmodel = require('./models/guardian');
+var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
 
@@ -42,7 +43,19 @@ connectionPool.getConnection((function(err, connection){
 
 //Testing of of models.
 //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
-// usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
+// usermodel.insert('dilan', 'dilan', 'moe_officer', 'dilan@email.com', 'T', connectionPool);
+// var dasun = {
+//     applicant_id: 81,
+//     first_name: 'dasun',
+//     last_name: 'pubudumal',
+//     date_of_birth: '1994-5-12',
+//     // age: req.body.age,
+//     nationality: 'Afghan',
+//     religion: 'Buddhist',
+//     gender: 'M',
+//     guardian_nic_no: 1553
+// };
+// applicantmodel.insert(dasun, connectionPool);
 
 // //Test Promise Execution
 // usermodel.getUserType('dotty',connectionPool).then(function (rows) {
@@ -50,6 +63,7 @@ connectionPool.getConnection((function(err, connection){
 // }).catch(function (err) {
 //     console.log(err);
 // });
+
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
@@ -107,7 +121,7 @@ app.use(function(req, res, next) {
 //Require the passport initialization file.
 require('./config/passport')(passport,connectionPool, LocalStrategy);
 
-var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, usermodel, guardianmodel, LocalStrategy);
+var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, usermodel, guardianmodel, applicantmodel, LocalStrategy);
 //Setting controllers.
 app.use('/', indexRoutes);
 

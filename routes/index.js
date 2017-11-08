@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-module.exports = function (app, express, passport, pool, usermodel, guardianmodel, LocalStrategy) {
+module.exports = function (app, express, passport, pool, usermodel, guardianmodel, applicantmodel, LocalStrategy) {
 
     var router = express.Router();
 
@@ -16,8 +16,28 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         console.log(app.locals.guardian.guardian_nic_no);
         // res.send('Check Console.')
         res.render('applicant-details', {
+            title: 'Applicant Details',
             guardian: app.locals.guardian
         });
+    });
+
+    router.post('/applicant_details', function (req, res, next) {
+
+        var applicant = {
+            applicant_id: req.body.applicant_id,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            date_of_birth: req.body.dob,
+            // age: req.body.age,
+            nationality: req.body.nationality,
+            religion: req.body.religion,
+            gender: req.body.gender,
+            guardian_nic_no: app.locals.guardian.guardian_nic_no
+        };
+        console.log(applicant.date_of_birth);
+        applicantmodel.insert(applicant,pool);
+        // res.render('applicant-details',{username: req.user.username});
+        res.redirect('/applicant-school-details')
     });
 
     router.get('/register', function (req, res, next) {
