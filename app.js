@@ -17,6 +17,7 @@ var db = require('./config/db');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
+var guardianmodel = require('./models/guardian');
 var connectionPool = db.pool;
 var app = express();
 
@@ -44,7 +45,7 @@ connectionPool.getConnection((function(err, connection){
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
-usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
+// usermodel.insert('sandun', 'sandun', 'school_clerk','abc@email.com','T', connectionPool);
 // usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
 
 // //Test Promise Execution
@@ -112,7 +113,7 @@ app.use(function(req, res, next) {
 //Require the passport initialization file.
 require('./config/passport')(passport,connectionPool, LocalStrategy);
 
-var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, usermodel, LocalStrategy);
+var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, usermodel, guardianmodel, LocalStrategy);
 //Setting controllers.
 app.use('/', indexRoutes);
 

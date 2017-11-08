@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-module.exports = function (app, express, passport, pool, usermodel, LocalStrategy) {
+module.exports = function (app, express, passport, pool, usermodel, guardianmodel, LocalStrategy) {
 
     var router = express.Router();
 
@@ -25,28 +25,29 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     });
 
     router.post('/guardian_details', function (req, res, next) {
+
         var guardian = {
-            nic: req.body.nic,
-            fname: req.body.fname,
-            lname: req.body.lname,
-            dob: req.body.dob,
-            age: req.body.age,
+            guardian_nic_no: req.body.guardian_nic,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            date_of_birth: req.body.dob,
+            // age: req.body.age,
             nationality: req.body.nationality,
             religion: req.body.religion,
             gender: req.body.gender,
-            home_no: req.body.home_no,
+            Number_of_the_home: req.body.home_number,
             street: req.body.street,
             town: req.body.town,
             city: req.body.city,
-            res_distr: req.body.res_distr,
+            residential_district: req.body.district,
             province: req.body.province,
-            div_sec_area: req.body.div_sec_area,
-            grama_nil_div: req.body.grama_nil_div,
+            divisional_secretary_area: req.body.divisional_secretary_area,
+            grama_niladhari_division: req.body.grama_niladhari_division,
             occupation: req.body.occupation,
             civil_status: req.body.civil_status
         };
-        usermodel.insert(guardian);
-        res.redirect('/applicant-details');
+        guardianmodel.insert(guardian,pool);
+        res.render('applicant-details');
     });
 
     function authenticationMiddleware() {
