@@ -3,19 +3,19 @@
         <form action="/guardian_details" method="post">
             <div class="form-group">
                 <label for="guardian_nic" class="left">NIC No:</label>
-                <input type="number" class="form-control" name="guardian_nic">
+                <input type="number" class="form-control" name="guardian_nic" required>
             </div>
             <div class="form-group">
                 <label for="first_name" class="left">First Name:</label>
-                <input type="text" class="form-control" name="first_name">
+                <input type="text" class="form-control" name="first_name" required>
             </div>
             <div class="form-group">
                 <label for="last_name">Last Name:</label>
-                <input type="text" class="form-control" name="last_name">
+                <input type="text" class="form-control" name="last_name" required>
             </div>
             <div class="form-group">
                 <label for="dob">Date of Birth:</label>
-                <input type="date" class="form-control" name="dob">
+                <input type="date" class="form-control" name="dob" required>
             </div>
             <div class="form-group">
                 <label for="nationality"> Nationality </label>
@@ -43,45 +43,44 @@
                     <select id="input_3" name="gender"  data-component="dropdown">
                         <option value="Male"> Male </option>
                         <option value="Female"> Female</option>
-                        <option value="Other"> Other </option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label for="home_number" class="left">Home No:</label>
-                <input type="number" class="form-control" name="home_number">
+                <input type="number" class="form-control" name="home_number" required>
             </div>
             <div class="form-group">
                 <label for="street" class="left">Street:</label>
-                <input type="text" class="form-control" name="street">
+                <input type="text" class="form-control" name="street" required>
             </div>
             <div class="form-group">
                 <label for="town" class="left">Town:</label>
-                <input type="text" class="form-control" name="town">
+                <input type="text" class="form-control" name="town" required>
             </div>
             <div class="form-group">
                 <label for="city" class="left">City:</label>
-                <input type="text" class="form-control" name="city">
+                <input type="text" class="form-control" name="city" required>
             </div>
             <div class="form-group">
                 <label for="district" class="left">District:</label>
-                <input type="text" class="form-control" name="district">
+                <input type="text" class="form-control" name="district" required>
             </div>
             <div class="form-group">
                 <label for="province" class="left">Province:</label>
-                <input type="text" class="form-control" name="province">
+                <input type="text" class="form-control" name="province" required>
             </div>
             <div class="form-group">
                 <label for="divisional_secretary_area" class="left">Divisional Secretary Area:</label>
-                <input type="text" class="form-control" name="divisional_secretary_area">
+                <input type="text" class="form-control" name="divisional_secretary_area" required>
             </div>
             <div class="form-group">
                 <label for="grama_niladhari_division" class="left">Grama Niladhari Division:</label>
-                <input type="text" class="form-control" name="grama_niladhari_division">
+                <input type="text" class="form-control" name="grama_niladhari_division" required>
             </div>
             <div class="form-group">
                 <label for="occupation" class="left">Occupation:</label>
-                <input type="text" class="form-control" name="occupation">
+                <input type="text" class="form-control" name="occupation" required>
             </div>
             <label for="civil_status">Civil Status </label>
             <div class="dropdown" id="civil_status">
@@ -91,7 +90,7 @@
                 </select>
             </div>
             <br>
-            <button type="Submit" class="btn btn-default">Submit</button>
+            <button type="Submit" class="btn btn-default">Next</button>
     </form>
     </div>
 </span>

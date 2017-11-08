@@ -12,6 +12,14 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         res.sendFile(path.join(__dirname + '/../pages/home.html'));
     });
 
+    router.get('/applicant-details', function (req, res, next) {
+        console.log(app.locals.guardian.guardian_nic_no);
+        // res.send('Check Console.')
+        res.render('applicant-details', {
+            guardian: app.locals.guardian
+        });
+    });
+
     router.get('/register', function (req, res, next) {
         res.render('register', {title: 'Register'});
     });
@@ -46,8 +54,10 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
             occupation: req.body.occupation,
             civil_status: req.body.civil_status
         };
+        app.locals.guardian = guardian;
         guardianmodel.insert(guardian,pool);
-        res.render('applicant-details');
+        // res.render('applicant-details',{username: req.user.username});
+        res.redirect('/applicant-details')
     });
 
     function authenticationMiddleware() {
