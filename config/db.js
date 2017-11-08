@@ -1,8 +1,8 @@
 var mysql = require('mysql')
     , async = require('async');
 
-var PRODUCTION_DB = 'schooldbms'
-    , TEST_DB = 'schooldbms';
+var PRODUCTION_DB = 'skul_admi'
+    , TEST_DB = 'skul_admi';
 
 /*
 Connection Pooling
