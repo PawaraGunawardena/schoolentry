@@ -44,15 +44,17 @@ connectionPool.getConnection((function(err, connection){
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
-// usermodel.insert('pavan', 'pavan', 'school_clerk', connectionPool);
+usermodel.insert('pavan', 'pavan', 'school_clerk', connectionPool);
 // usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
 
-//Test Promise Execution
-usermodel.getUserType('dotty',connectionPool).then(function (rows) {
-    console.log(rows[0].user_type);
-}).catch(function (err) {
-    console.log(err);
-});
+// //Test Promise Execution
+// usermodel.getUserType('dotty',connectionPool).then(function (rows) {
+//     console.log(rows[0].user_type);
+// }).catch(function (err) {
+//     console.log(err);
+// });
+
+
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
