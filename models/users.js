@@ -22,9 +22,9 @@ console.log(query.sql);
  */
 
 //Add new users.
-exports.insert = function(username, password, user_type,email,able_to_access, pool, done){
+exports.insert = function(id ,username, password, user_type,email,able_to_access, pool, done){
     bcrypt.hash(password, 8, function (err, hash) {
-        var user = {username: username, password: hash, user_type: user_type,email: email,able_to_access: able_to_access};
+        var user = {id:id, username: username, password: hash, user_type: user_type,email: email,able_to_access: able_to_access};
         pool.getConnection(function (err, connection) {
             if (err) throw err;
             var query = connection.query('INSERT INTO users SET ?', user, function (error, results) {
@@ -35,7 +35,6 @@ exports.insert = function(username, password, user_type,email,able_to_access, po
             connection.release();
         });
     });
-
 };
 
 //Remove users.

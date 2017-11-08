@@ -41,10 +41,6 @@ connectionPool.getConnection((function(err, connection){
 }));
 
 //Testing of of models.
-// usermodel.insert('nalaka', 'nalaka');
-// usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
-// usermodel.view();
-// usermodel.test('dasunpubudumal');
 //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
 // usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
 
@@ -54,8 +50,6 @@ connectionPool.getConnection((function(err, connection){
 // }).catch(function (err) {
 //     console.log(err);
 // });
-
-
 
 //Partial Registryclear
 hbs.registerPartials(__dirname + '/views/partials');
@@ -70,7 +64,6 @@ hbs.registerHelper(
         }
     }
 );
-
 
 //Adding middleware.
 app.use(logger('dev'));
@@ -102,6 +95,7 @@ app.use(expressValidator({
         };
     }
 }));
+
 app.use(flash());
 app.use(function(req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
