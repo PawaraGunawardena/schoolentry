@@ -4,7 +4,7 @@
     <title>{{title}}</title>
     <!--Had to grab bootstrap from the source because the npm package was corrupted.-->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <!--Custom sections for each view-->
     {{{_sections.head}}}
@@ -15,7 +15,7 @@
     {{> navbar}}
 
     <!--Body and the sidebar-->
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 40px;">
         {{{body}}}
     </div>
 

@@ -26,7 +26,8 @@ var user = {username:'Oshada', password: 'oshadaspw'};
 app.set('views',
     [
         path.join(__dirname, 'views'),
-        path.join(__dirname, 'views/users')
+        path.join(__dirname, 'views/users'),
+        path.join(__dirname, 'views/applicant')
     ]
 );
 app.set('view engine', 'hbs');
@@ -43,10 +44,10 @@ connectionPool.getConnection((function(err, connection){
 // usermodel.update('dasun', 'dasunpubudumal', 'dasunpubudumalspw')
 // usermodel.view();
 // usermodel.test('dasunpubudumal');
-// usermodel.insert('dotty', 'dotty', 'school_admin', connectionPool);
+// usermodel.insert('pavan', 'pavan', 'school_clerk', connectionPool);
 // usermodel.insert('dilan', 'dilan', 'moe_officer', connectionPool);
 
-
+//Test Promise Execution
 usermodel.getUserType('dotty',connectionPool).then(function (rows) {
     console.log(rows[0].user_type);
 }).catch(function (err) {
@@ -109,8 +110,9 @@ app.use(function(req, res, next) {
 //Require the passport initialization file.
 require('./config/passport')(passport,connectionPool, LocalStrategy);
 
+var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, usermodel, LocalStrategy);
 //Setting controllers.
-app.use('/', index);
+app.use('/', indexRoutes);
 
 //Setting user controller
 var userRoutes = require('./routes/users')(app, express, passport, connectionPool, usermodel, LocalStrategy);
