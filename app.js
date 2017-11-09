@@ -43,7 +43,7 @@ connectionPool.getConnection((function(err, connection){
 
 //Testing of of models.
 //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
-// usermodel.insert('dilan', 'dilan', 'moe_officer', 'dilan@email.com', 'T', connectionPool);
+// usermodel.insert(2, 'dilan','dilan','moe_officer','email','T',connectionPool);
 // var dasun = {
 //     applicant_id: 81,
 //     first_name: 'dasun',
