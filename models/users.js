@@ -32,6 +32,23 @@ exports.insert = function(id ,username, password, user_type,email,able_to_access
             });
             console.log('Insert query: ' + query.sql);
             console.log('Users Inserted!');
+
+            // if(user_type == 'moe_officer'){
+            //     var moe_officer = {
+            //         officer_moe_id:
+            //         id, post: 'moe_officer',
+            //         first_name: first_name,
+            //         last_name: last_name,
+            //         date_of_birth: dob,
+            //         nationality: nationality,
+            //         religion: religion,
+            //         gender: gender
+            //     };
+            //     var query2 = connection.query('INSERT INTO officer_ministry_of_education SET ?', moe_officer, function (err, results) {
+            //        if(err) throw err;
+            //     });
+            // };
+
             connection.release();
         });
     });

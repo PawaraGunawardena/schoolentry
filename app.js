@@ -44,19 +44,6 @@ connectionPool.getConnection((function(err, connection){
 //Testing of of models.
 //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
 // usermodel.insert(2, 'dilan','dilan','moe_officer','email','T',connectionPool);
-// var dasun = {
-//     applicant_id: 81,
-//     first_name: 'dasun',
-//     last_name: 'pubudumal',
-//     date_of_birth: '1994-5-12',
-//     // age: req.body.age,
-//     nationality: 'Afghan',
-//     religion: 'Buddhist',
-//     gender: 'M',
-//     guardian_nic_no: 1553
-// };
-// applicantmodel.insert(dasun, connectionPool);
-
 // //Test Promise Execution
 // usermodel.getUserType('dotty',connectionPool).then(function (rows) {
 //     console.log(rows[0].user_type);
