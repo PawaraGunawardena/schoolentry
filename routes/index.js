@@ -12,7 +12,7 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         res.sendFile(path.join(__dirname + '/../pages/home.html'));
     });
 
-    router.get('/applicant-details', function (req, res, next) {
+    router.get('/applicant_details', function (req, res, next) {
         console.log(app.locals.guardian.guardian_nic_no);
         // res.send('Check Console.')
         res.render('applicant-details', {
@@ -37,7 +37,16 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         console.log(applicant.date_of_birth);
         applicantmodel.insert(applicant,pool);
         // res.render('applicant-details',{username: req.user.username});
-        res.redirect('/applicant-school-details')
+        res.redirect('/applicant_school_details')
+    });
+
+    router.get('/applicant_school_details', function (req, res, next) {
+        console.log(app.locals.guardian.guardian_nic_no);
+        // res.send('Check Console.')
+        res.render('applicant-school-details', {
+            title: 'Applicant School Details',
+            guardian: app.locals.guardian
+        });
     });
 
     router.get('/register', function (req, res, next) {
@@ -77,7 +86,7 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         app.locals.guardian = guardian;
         guardianmodel.insert(guardian,pool);
         // res.render('applicant-details',{username: req.user.username});
-        res.redirect('/applicant-details')
+        res.redirect('/applicant_details');
     });
 
     function authenticationMiddleware() {
@@ -93,4 +102,5 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
     return router
 
 };
+
 
