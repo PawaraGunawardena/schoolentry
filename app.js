@@ -44,7 +44,7 @@ connectionPool.getConnection((function(err, connection){
 //Testing of of models.
 //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
 // usermodel.insert(2, 'dilan','dilan','moe_officer','email','T',connectionPool);
-// //Test Promise Execution
+// //Test Promise Executions
 // usermodel.getUserType('dotty',connectionPool).then(function (rows) {
 //     console.log(rows[0].user_type);
 // }).catch(function (err) {

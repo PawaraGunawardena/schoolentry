@@ -27,7 +27,6 @@ For more info, visit,
 1. https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/cdat_conpool.html
 2. http://geekexplains.blogspot.com/2008/06/what-is-connection-pooling-why-do-we.html
 
--Author: Dasun Pubudumal
 
  */
 
