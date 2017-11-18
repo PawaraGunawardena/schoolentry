@@ -29,7 +29,8 @@ app.set('views',
     [
         path.join(__dirname, 'views'),
         path.join(__dirname, 'views/users'),
-        path.join(__dirname, 'views/applicant')
+        path.join(__dirname, 'views/applicant'),
+        path.join(__dirname, 'views/schools')
     ]
 );
 app.set('view engine', 'hbs');
@@ -115,6 +116,9 @@ app.use('/', indexRoutes);
 //Setting user controller
 var userRoutes = require('./routes/users')(app, express, passport, connectionPool, usermodel, LocalStrategy);
 app.use('/users', userRoutes);
+
+var schoolRoutes = require('./routes/schools');
+app.use('/school', schoolRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
