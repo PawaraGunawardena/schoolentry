@@ -1,0 +1,66 @@
+<div class="row">
+{{>sidebar_moe_officer}}
+
+    <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+
+        <h4>Fill New School Details</h4>
+
+        <form action = "" method="post">
+
+            Name :
+            <input type="text" name="school_name"><br/><hr>
+
+            <h4>School Address</h4>
+            Postal Number :
+            <input type="text" name="school_posatal"><br/><br/>
+
+            Road :
+            <input type="text" name="school_road"><br/><br/>
+
+            City :
+            <input type="text" name="school_city"><br/><br/>
+
+            Province :
+
+            <div class="province_dev" id="province">
+                <select id="province_dropdown_id" name="province_dropdown"  data-component="dropdown">
+                    <option value = "province">Select Province</option>
+                    <option value = "province"> Western</option>
+                    <option value = "province"> Southern</option>
+                    <option value = "province"> Central</option>
+                    <option value = "province"> Eastern</option>
+                    <option value = "province"> Northern</option>
+                    <option value = "province"> North Western</option>
+                    <option value = "province"> North Central</option>
+                    <option value = "province"> Uva</option>
+                    <option value = "province"> Sabaragamuwa</option>
+                </select>
+            </div>
+
+
+
+            Maximum Possible Grade One Entries for a Year :
+            <input type="text" name="school_max_students"><br/><hr>
+
+            <h4>Religional Percentages</h4><br/>
+
+            Buddhism :
+            <input type="text" name="school_buddhism"><br/><br/>
+
+            Christianity :
+            <input type="text" name="school_christianity"><br/><br/>
+
+            Islamic :
+            <input type="text" name="school_islamic"><br/><br/>
+
+            Hindu :
+            <input type="text" name="school_hindu"><br/><br/>
+
+            <button type="submit" name = "btn_submit_school">Submit new school</button>
+            <button type="submit" name = "btn_cancel_school">Cancel</button>
+
+        </form>
+    </main>
+    <!--/ Main page content-->
+
+</div>
