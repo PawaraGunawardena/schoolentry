@@ -1,0 +1,62 @@
+<div class="row">
+    {{>sidebar_moe_officer}}
+
+    <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+
+        <h4>Select a school School</h4>
+
+        <form action = "" method="post">
+
+            Name :
+            <div class="name_db" id="update">
+                <select id="name_dropdown_id" name="name_dropdown"  data-component="dropdown">
+                    <option value = "name">Select Name</option>
+                </select>
+            </div>
+
+            Postal Number :
+            <div class="postal_number_db" id="update">
+                <select id="postal_number_dropdown_id" name="postal_number_dropdown"  data-component="dropdown">
+                    <option value = "postal_number">Select Postal Number</option>
+                </select>
+            </div>
+
+            Road :
+            <div class="road_db" id="update">
+                <select id="road_dropdown_id" name="road_dropdown"  data-component="dropdown">
+                    <option value = "road">Select Road</option>
+                </select>
+            </div>
+
+            City :
+            <div class="city_db" id="update">
+                <select id="city_dropdown_id" name="city_dropdown"  data-component="dropdown">
+                    <option value = "city">Select City</option>
+                </select>
+            </div>
+
+            Province :
+
+            <div class="province_dev" id="province">
+                <select id="province_dropdown_id" name="province_dropdown"  data-component="dropdown">
+                    <option >Select Province</option>
+                    <option value = "province"> Western</option>
+                    <option value = "province"> Southern</option>
+                    <option value = "province"> Central</option>
+                    <option value = "province"> Eastern</option>
+                    <option value = "province"> Northern</option>
+                    <option value = "province"> North Western</option>
+                    <option value = "province"> North Central</option>
+                    <option value = "province"> Uva</option>
+                    <option value = "province"> Sabaragamuwa</option>
+                </select>
+            </div>
+
+            <button type="submit" name = "btn_select_school">Show More</button>
+            <button type="submit" name = "btn_cancel_school">Cancel</button>
+
+        </form>
+    </main>
+    <!--/ Main page content-->
+
+</div>
