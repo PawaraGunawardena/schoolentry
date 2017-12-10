@@ -96,7 +96,7 @@ exports.view = function (pool, done) {
     });
 };
 
-//Promise based functionality.
+//Promise based functionality for data retrievals from the db.
 exports.getUserType = function (username, pool) {
   return new Promise(fn);
   function fn(resolve, reject) {
