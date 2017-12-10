@@ -96,9 +96,9 @@ exports.view = function (pool, done) {
     });
 };
 
+//Promise based functionality.
 exports.getUserType = function (username, pool) {
   return new Promise(fn);
-
   function fn(resolve, reject) {
       pool.getConnection(function (error, connection) {
          if(error){
