@@ -30,7 +30,9 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
             usermodel.insert(req.body.user_id, req.body.username,  req.body.password, req.body.user_type,  req.body.email, 'T' ,pool);
             res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));    //Try to redirect this to users' page
         } else {
-            console.log('Password mismatch!');
+            console.log('Password mismatch!')
+            alert('Password Mismatch!');
+            res.redirect('/signup');
         }
     });
 
