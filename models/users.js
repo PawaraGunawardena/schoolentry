@@ -21,6 +21,11 @@ console.log(query.sql);
 ==================================================================================================
  */
 
+ /*
+For information about Javascript Promises - https://developers.google.com/web/fundamentals/primers/promises
+OR refer to the documentation of our Github repository.
+ */
+
 //Add new users.
 exports.insert = function(id ,username, password, user_type,email,able_to_access, pool, done){
     bcrypt.hash(password, 8, function (err, hash) {
