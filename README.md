@@ -44,6 +44,20 @@ said that the performance raises up to 20 times than that of normal db connectio
 * Since NodeJs is the major player in the web-industry these days, it was introduced inside the mysql driver
 in Node Packages.
 
+**Some important coments**
+
+``
+//Testing of of models.
+//usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
+// usermodel.insert(2, 'dilan','dilan','moe_officer','email','T',connectionPool);
+// //Test Promise Executions
+// usermodel.getUserType('dotty',connectionPool).then(function (rows) {
+//     console.log(rows[0].user_type);
+// }).catch(function (err) {
+//     console.log(err);
+// });
+``
+
 *For more info, visit,*
 
 1. [IBM official website - Connection Pooling](https://www.ibm.com/support/knowledgecenter/en/SSAW57_8.5.5/com.ibm.websphere.nd.doc/ae/cdat_conpool.html)
