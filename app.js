@@ -98,7 +98,8 @@ app.use(function(req, res, next) {
 //Require the passport initialization file.
 require('./config/passport')(passport,connectionPool, LocalStrategy);
 
-var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, usermodel, guardianmodel, applicantmodel, LocalStrategy);
+var indexRoutes = require('./routes/index')(app, express, passport, connectionPool, 
+    usermodel, guardianmodel, applicantmodel, LocalStrategy);
 //Setting controllers.
 app.use('/', indexRoutes);
 
