@@ -4,8 +4,15 @@
             <label for="guardian_nic" class="left">Enter Guardian NIC No:
                 <input type="text" class="form-control" name="guardian_nic" required>
             </label>
-            <input type="submit">
+            <input type="submit" class="btn btn-default">
         </div>
-
     </form>
+    <button id="test">Click me!</button>
 </div>
+{{#section 'scripts'}}
+<script>
+$('#test').click(function(){
+    console.log('Clicked!');
+});
+</script>
+{{/section}}
