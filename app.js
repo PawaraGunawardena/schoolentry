@@ -18,6 +18,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
 var guardianmodel = require('./models/guardian');
+var schoolmodel = require('./models/school');
 var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
@@ -107,7 +108,7 @@ app.use('/', indexRoutes);
 var userRoutes = require('./routes/users')(app, express, passport, connectionPool, usermodel, LocalStrategy);
 app.use('/users', userRoutes);
 
-var schoolRoutes = require('./routes/schools');
+var schoolRoutes = require('./routes/schools')(app, express, schoolmodel);
 app.use('/school', schoolRoutes);
 
 // catch 404 and forward to error handler

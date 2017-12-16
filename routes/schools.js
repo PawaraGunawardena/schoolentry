@@ -1,8 +1,13 @@
 var express = require('express');
-var router = express.Router();
+var db = require('../config/db');
+var schoolmodel = require('../models/school');
 
-router.get('/', function(req, res){
-    res.render('schoolindex');
-});
+module.exports = function(app, express, schoolmodel){
+    var router = express.Router();
 
-module.exports = router;
+    router.get('/', function(req, res){
+        res.render('schoolindex');
+    });
+
+    return router;
+}
