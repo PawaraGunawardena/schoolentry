@@ -27,7 +27,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         if(req.body.password == req.body.confirmpassword) {
             //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
             // usermodel.insert(2, 'dilan','dilan','moe_officer','email','T',connectionPool);
-            usermodel.insert(req.body.user_id, req.body.username,  req.body.password, req.body.user_type,  req.body.email, 'T' ,pool);
+            usermodel.insert(req.body.username,  req.body.password, req.body.user_type,  req.body.email, 'T' ,pool);
             res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));    //Try to redirect this to users' page
         } else {
             console.log('Password mismatch!')
