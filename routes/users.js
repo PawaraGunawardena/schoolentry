@@ -58,10 +58,16 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         })(req, res, next);
     });
 
+
     router.get('/logout',authenticationMiddleware(), function (req, res, next) {
         req.session.destroy(function (err) {
             res.redirect('/')
         });
+    });
+
+    router.post('/view_applicant', function (req, res, next) {
+        console.log("Guardian NIC: " + req.body.guardian_nic);
+
     });
 
     //This will prevent the user from going to the userprofile route without logging in.
