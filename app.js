@@ -23,8 +23,6 @@ var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
 
-var user = {username:'Oshada', password: 'oshadaspw'};
-
 // view engine setup
 app.set('views',
     [
@@ -108,8 +106,12 @@ app.use('/', indexRoutes);
 var userRoutes = require('./routes/users')(app, express, passport, connectionPool, usermodel, LocalStrategy);
 app.use('/users', userRoutes);
 
-var schoolRoutes = require('./routes/schools')(app, express, schoolmodel);
+var schoolRoutes = require('./routes/schools')(app, express, connectionPool , schoolmodel);
 app.use('/school', schoolRoutes);
+
+var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
+app.use('/applicant', applicantRoutes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

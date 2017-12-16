@@ -65,10 +65,9 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         });
     });
 
-    router.post('/view_applicant', function (req, res, next) {
-        console.log("Guardian NIC: " + req.body.guardian_nic);
-
-    });
+    // router.post('/view_applicant', function (req, res, next) {
+    //     console.log("Guardian NIC: " + req.body.guardian_nic);
+    // });
 
     //This will prevent the user from going to the userprofile route without logging in.
     function authenticationMiddleware() {

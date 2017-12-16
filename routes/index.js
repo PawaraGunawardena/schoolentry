@@ -61,13 +61,13 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         );
     });
 
-    router.get('/view_applicant_details', authenticationMiddleware(), function (req, res, next) {
-        res.render('view-applicant-details', {
-                title: 'Applicant Details',
-                username: req.user.username //Important
-            }
-        );
-    });
+    // router.get('/view_applicant_details', authenticationMiddleware(), function (req, res, next) {
+    //     res.render('view-applicant-details', {
+    //             title: 'Applicant Details',
+    //             username: req.user.username //Important
+    //         }
+    //     );
+    // });
 
     router.post('/guardian_details', function (req, res, next) {
 
