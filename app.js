@@ -106,9 +106,11 @@ app.use('/', indexRoutes);
 var userRoutes = require('./routes/users')(app, express, passport, connectionPool, usermodel, LocalStrategy);
 app.use('/users', userRoutes);
 
+//Setting school controllers.
 var schoolRoutes = require('./routes/schools')(app, express, connectionPool , schoolmodel);
 app.use('/school', schoolRoutes);
 
+//Setting applicant controller.
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
 app.use('/applicant', applicantRoutes);
 

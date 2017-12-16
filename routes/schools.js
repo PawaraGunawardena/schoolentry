@@ -5,6 +5,7 @@ var schoolmodel = require('../models/school');
 module.exports = function(app, express, pool, schoolmodel){
     var router = express.Router();
 
+    //schools index route
     router.get('/', function(req, res){
         res.render('schoolindex');
     });
