@@ -85,7 +85,7 @@ exports.view = function (pool, done) {
 };
 
 //Promise based functionality for data retrievals from the db.
-exports.getUserType = function (username, pool) {
+exports.getUserInfo = function (username, pool) {
   return new Promise(fn);
   function fn(resolve, reject) {
       pool.getConnection(function (error, connection) {
