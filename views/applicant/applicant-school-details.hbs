@@ -4,55 +4,35 @@
 
     <div style="width: 60%; text-align: left; padding-left: 60px; padding-right: 66px;padding-bottom: 40px;" >
         <form action="/applicant_school_details" method="post">
-            {{!-- <div class="form-group">
-                <label for="applicant_id" class="left">ID:</label>
-                <input type="number" class="form-control" name="applicant_id" required>
-            </div>
-            <div class="form-group">
-                <label for="first_name" class="left">First Name:</label>
-                <input type="text" class="form-control" name="first_name" required>
-            </div>
-            <div class="form-group">
-                <label for="last_name">Last Name:</label>
-                <input type="text" class="form-control" name="last_name" required>
-            </div>
-            <div class="form-group">
-                <label for="dob">Date of Birth:</label>
-                <input type="date" class="form-control" name="dob" required>
-            </div> --}}
+            <br>
             <div class="form-group">
                 <label for="school_name"> School </label>
                 <div class="dropdown" id="school_name">
                     <select class="form-control" id="school_option">
-                        {{#each dropdownVals.name}}
-                            <li>{{this}}</li>
+                        {{#each dropdownValues}}
+                            <option value="{{this.name}}">{{this.name}}</option>
                         {{/each}}
                     </select>
                 </div>
             </div>
 
-            <label for="religion"> Religion </label>
-            <div class="dropdown" id="religion">
-                <select id="input_3" name="religion"  data-component="dropdown">
-                    <option value="Buddhist"> Buddhist </option>
-                    <option value="Christian"> Christian</option>
-                    <option value="Islam"> Islam </option>
-                    <option value="Hindu"> Hindu </option>
-                    <option value="Other"> Other </option>
-                </select>
-            </div>
-            <br>
             <div class="form-group">
-                <label for="gender"> Gender </label>
-                <div class="dropdown" id="gender">
-                    <select id="input_3" name="gender"  data-component="dropdown">
-                        <option value="M"> Male </option>
-                        <option value="F"> Female</option>
+                <label for="medium"> Medium </label>
+                <div class="dropdown" id="medium">
+                    <select id="option_medium" name="medium"  data-component="dropdown">
+                        <option value="Sinhala"> Sinhala </option>
+                        <option value="English"> English </option>
+                        <option value="Tamil"> Tamil </option>
                     </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="distance_to_school" class="left">Distance to the School</label>
+                <input type="number" class="form-control" name="distance_to_school" required>
+            </div>
             <br>
             <button type="Submit" class="btn btn-default">Submit</button>
-    </form>
+        </form>
     </div>
 </span>
