@@ -55,16 +55,24 @@ exports.remove = function (username, pool, done) {
 };
 
 //Update user profiles.
-exports.update = function (oldusername, username, password, pool, done) {
-    bcrypt.hash(password, 8, function (err, hash) {
-        pool.getConnection(function (err, connection) {
-            if (err) throw err;
-            var query = connection.query('UPDATE users SET username = ?, password = ? WHERE username = ?', [username, hash, oldusername], function (error, results) {
-                if(error) throw error;
-            });
-            console.log('Update query: ' + query.sql);
-            console.log('Users updated!');
-            connection.release();
+exports.update = function (oldusername, newUsername, newpassword, currentpassword, enteredpassword, email, pool, done) {
+    bcrypt.compare(enteredpassword, currentpassword, function(err, res){
+        console.log(res);
+        bcrypt.hash(newpassword, 8 , function(error, hash){
+            if(error) throw err;
+            if(res){
+                pool.getConnection(function (err, connection) {
+                    if (err) throw err;
+                    var query = connection.query('UPDATE users SET username = ?, password = ?, email = ? WHERE username = ?', [newUsername, hash, email, oldusername], function (error, results) {
+                        if(error) throw error;
+                    });
+                    console.log('Update query: ' + query.sql);
+                    console.log('Users updated!');
+                    connection.release();
+                });
+            }else{
+                console.log('Password not correct!');   
+            }
         });
     });
 };

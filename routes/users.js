@@ -31,7 +31,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
             res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));    //Try to redirect this to users' page
         } else {
             console.log('Password mismatch!')
-            alert('Password Mismatch!');
+            // alert('Password Mismatch!');
             res.redirect('/signup');
         }
     });
@@ -63,6 +63,24 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         req.session.destroy(function (err) {
             res.redirect('/')
         });
+    });
+
+    router.get('/update', function(req, res, next){
+        usermodel.getUserInfo(req.user.username, pool).then(function(rows){
+            res.render('update', {username: req.user.username,password: req.user.password, email: rows[0].email});
+        });
+    });
+
+    router.post('/update', function(req, res, next){
+        if(req.body.newpassword == req.body.confirmpassword){
+            usermodel.update(req.user.username, req.body.username, req.body.newpassword,req.user.password,req.body.oldpassword, req.body.email, pool);
+            req.session.destroy(function(err){
+                res.redirect('/login');
+            });
+        }else{
+            console.log('Password mismatch!!!');
+            res.redirect('/update');
+        }
     });
 
     //This will prevent the user from going to the userprofile route without logging in.
