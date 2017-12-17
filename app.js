@@ -15,12 +15,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
 var guardianmodel = require('./models/guardian');
 var schoolmodel = require('./models/school');
+var oldstudentmodel = require('./models/oldstudents');
 var applicantmodel = require('./models/applicant');
 var schoolusermodel = require('./models/schooluser');
 var connectionPool = db.pool;
@@ -38,6 +38,8 @@ app.set('views',
         path.join(__dirname, 'views/schools'),
         path.join(__dirname, 'views/school_clerk'),
         path.join(__dirname, 'views/school_admin')
+        path.join(__dirname, 'views/school_clerk'),
+        path.join(__dirname, 'views/oldstudents')
     ]
 );
 app.set('view engine', 'hbs');
@@ -122,19 +124,25 @@ app.use('/school', schoolRoutes);
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
 app.use('/applicant', applicantRoutes);
 
+var oldschoolroute = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+app.use('/oldstudents', oldschoolroute);
+
+// var oldschool_student_route = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+// app.use('/oldstudents', oldschool_student_route);
 //Setting applicant controller.
 var schooluserRoutes = require('./routes/schooluser')(app, express, connectionPool,usermodel,schoolmodel, schoolusermodel);
 app.use('/schooluser', schooluserRoutes);
 
 //Testing Area
 
-
-
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
 //     console.log(rows);
 // });
 // require('./config/mailing')(nodemailer);
 //End of Testing Area.
+// usermodel.getUserNames(connectionPool).then(function (rows) {
+//    console.log(rows);
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
