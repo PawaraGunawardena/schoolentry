@@ -44,5 +44,33 @@ module.exports = function(app, express, pool, schoolmodel){
         res.redirect('/school');
         //res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
     });
+
+    router.get('/remove_school', function (req, res, next) {
+        //console.log(req.bo.guardian_nic_no);
+        // res.send('Check Console.')
+        schoolmodel.getschoolName(pool).then(function (rows) {
+            res.render(
+                'remove_school', {
+                    title: 'Applicant School Details',
+                    // guardian: app.locals.guardian,
+                    // applicant: app.locals.applicant,
+                    dropdownValues: rows
+                });
+        });
+        //res.redirect('/privileges');
+
+    });
+
+    router.post('/removeschool', function(req, res, next){
+        schoolmodel.remove(
+            req.body.name,
+            pool);
+            res.redirect('/users/userprofile/' + req.user.username);
+        });
+
+
+
+
+
     return router;
 }
