@@ -10,6 +10,7 @@ var hbs = require('hbs');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
+var nodemailer = require('nodemailer');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
@@ -19,6 +20,7 @@ var users = require('./routes/users');
 var usermodel = require('./models/users');
 var guardianmodel = require('./models/guardian');
 var schoolmodel = require('./models/school');
+var oldstudentmodel = require('./models/oldstudents');
 var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
@@ -33,7 +35,8 @@ app.set('views',
         path.join(__dirname, 'views/users'),
         path.join(__dirname, 'views/applicant'),
         path.join(__dirname, 'views/schools'),
-        path.join(__dirname, 'views/school_clerk')
+        path.join(__dirname, 'views/school_clerk'),
+        path.join(__dirname, 'views/oldstudents')
     ]
 );
 app.set('view engine', 'hbs');
@@ -118,13 +121,21 @@ app.use('/school', schoolRoutes);
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
 app.use('/applicant', applicantRoutes);
 
+var oldschoolroute = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+app.use('/oldstudents', oldschoolroute);
+
+// var oldschool_student_route = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+// app.use('/oldstudents', oldschool_student_route);
 //Testing Area
 
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
 //     console.log(rows);
 // });
-
+// require('./config/mailing')(nodemailer);
 //End of Testing Area.
+// usermodel.getUserNames(connectionPool).then(function (rows) {
+//    console.log(rows);
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
