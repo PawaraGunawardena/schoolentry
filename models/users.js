@@ -78,6 +78,8 @@ exports.update = function (oldusername, newUsername, newpassword, currentpasswor
 };
 
 exports.remove = function(username, pool, done){
+    //Make sure to verify that a user cannot remove himself.
+    //Make sure he enters an existing user.
     pool.getConnection(function(err, connection){
         if(err) throw err;
         var query = connection.query('DELETE FROM users WHERE username = ?', username, function(error, results){

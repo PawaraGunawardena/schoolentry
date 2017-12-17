@@ -65,7 +65,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         });
     });
 
-    router.get('/update', function(req, res, next){
+    router.get('/update',authenticationMiddleware(), function(req, res, next){
         usermodel.getUserInfo(req.user.username, pool).then(function(rows){
             res.render('update', {username: req.user.username,password: req.user.password, email: rows[0].email});
         });
@@ -81,6 +81,22 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
             console.log('Password mismatch!!!');
             res.redirect('/users/update');
         }
+    });
+
+    router.get('/remove', authenticationMiddleware(), function(req, res, next){
+        res.render('userremove');
+    });
+
+    router.post('/remove', function(req, res, next){
+        usermodel.getUserInfo(req.body.username, pool).then(function(rows){
+            if(rows[0].username !=  null){
+                usermodel.remove(req.body.username,pool);
+                 res.redirect('/users/userprofile/' + req.user.username);
+            }else{
+                res.render('remove', {faliureMessage: "There is no users in the database matching with the username which you have provided."});
+            }
+        });
+        // usermodel.remove(req.user.username, pool);
     });
 
     //This will prevent the user from going to the userprofile route without logging in.
