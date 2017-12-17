@@ -39,7 +39,7 @@ module.exports = function(app, express, pool, applicantmodel){
                 res.render('guardian-details',{nic:req.body.guardian_nic});
             }else{
                 console.log('there are guardians');
-                res.render('applicant-details');
+                res.render('applicant-details',{nic:req.body.guardian_nic});
             }
         }).catch(function (err) {
             console.log(err);
