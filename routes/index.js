@@ -24,6 +24,7 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
     router.post('/applicant_details', function (req, res, next) {
 
         var applicant = {
+
             applicant_id: req.body.applicant_id,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -32,7 +33,7 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
             nationality: req.body.nationality,
             religion: req.body.religion,
             gender: req.body.gender,
-            guardian_nic_no: app.locals.guardian.guardian_nic_no
+            guardian_nic_no: req.body.guardian_nic
         };
         console.log(applicant.date_of_birth);
         applicantmodel.insert(applicant,pool);
@@ -41,7 +42,7 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
     });
 
     router.get('/applicant_school_details', function (req, res, next) {
-        console.log(app.locals.guardian.guardian_nic_no);
+        //console.log(req.bo.guardian_nic_no);
         // res.send('Check Console.')
         applicantmodel.getSchoolName(pool).then(function (rows) {
             res.render('applicant-school-details', {
