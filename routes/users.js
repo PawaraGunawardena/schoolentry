@@ -123,6 +123,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         // usermodel.remove(req.user.username, pool);
     });
 
+
     //This will prevent the user from going to the userprofile route without logging in.
     function authenticationMiddleware() {
         return function (req, res, next) {
@@ -133,6 +134,69 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
             }
         }
     }
+
+    router.get('/privileges', function (req, res, next) {
+        //console.log(req.bo.guardian_nic_no);
+        // res.send('Check Console.')
+        usermodel.getusername(pool).then(function (rows) {
+            res.render(
+                'moe_officer_privileges', {
+                title: 'Applicant School Details',
+                // guardian: app.locals.guardian,
+                // applicant: app.locals.applicant,
+                dropdownValues: rows
+            });
+        });
+        //res.redirect('/privileges');
+
+    });
+
+    router.get('/privileges_principle', function (req, res, next) {
+        //console.log(req.bo.guardian_nic_no);
+        // res.send('Check Console.')
+        usermodel.getusername_principle(pool).then(function (rows) {
+            res.render(
+                'principle_privileges', {
+                    title: 'Applicant School Details',
+                    // guardian: app.locals.guardian,
+                    // applicant: app.locals.applicant,
+                    dropdownValues: rows
+                });
+        });
+        //res.redirect('/privileges');
+
+    });
+
+    // router.post('/change_privilege', function (req, res, next) {
+    //     //console.log(req.bo.guardian_nic_no);
+    //     // res.send('Check Console.')
+    //     usermodel.getusername(pool).then(function (rows) {
+    //         res.render(
+    //             'moe_officer_privileges', {
+    //                 title: 'Applicant School Details',
+    //                 // guardian: app.locals.guardian,
+    //                 // applicant: app.locals.applicant,
+    //                 dropdownValues: rows
+    //             });
+    //     });
+    //
+    // });
+
+    router.post('/change_privilege', function (req, res, next) {
+        // req.logout();
+            usermodel.privilege(req.body.user_name, req.body.privilege_drop, pool);
+            //res.redirect('/users/privileges');
+            res.redirect('/users/userprofile/' + req.user.username);
+
+    });
+
+    router.post('/change_principle_privilege', function (req, res, next) {
+        // req.logout();
+        usermodel.privilege(req.body.user_name, req.body.privilege_drop, pool);
+        //res.redirect('/users/privileges_principle');
+        res.redirect('/users/userprofile/' + req.user.username);
+
+    });
 
     return router;
 };

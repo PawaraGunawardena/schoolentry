@@ -40,6 +40,8 @@ app.set('views',
         path.join(__dirname, 'views/school_admin')
         path.join(__dirname, 'views/school_clerk'),
         path.join(__dirname, 'views/oldstudents')
+        path.join(__dirname, 'views/oldstudents'),
+        path.join(__dirname, 'views/privileges')
     ]
 );
 app.set('view engine', 'hbs');
