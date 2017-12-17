@@ -77,7 +77,7 @@ exports.getApplicantIDfromAppliesSchool= function (applicant_id,medium,school_id
             if (error) {
                 return reject(error)
             } else {
-                connection.query('SELECT applicant_id FROM applicant_applies_school WHERE applicant_id=? AND medium=? AND school_id=?', [applicant_id,medium,school_id], function (err, rows) {
+                connection.query('SELECT * FROM applicant_applies_school WHERE applicant_id=? AND medium=? AND school_id=?', [applicant_id,medium,school_id], function (err, rows) {
                     if (err) {
                         return reject(err);
                     } else {
@@ -90,8 +90,6 @@ exports.getApplicantIDfromAppliesSchool= function (applicant_id,medium,school_id
     }
 
 };
-
-
 
 
 exports.getSchoolID = function (schoolName, pool, done) {
@@ -112,4 +110,16 @@ exports.getSchoolID = function (schoolName, pool, done) {
             }
         });
     }
+};
+
+exports.insertApplicantInterviewMarks = function (interview_marks, pool, done) {
+    pool.getConnection(function (err, connection) {
+        if(err) throw err;
+        var query = connection.query('INSERT INTO applicant_interview_school SET ?', interview_marks, function (error, result) {
+            if(error) throw error;
+        });
+        console.log('Insert Query: ' + query);
+        console.log('Interview marks Inserted!');
+        connection.release();
+    });
 };

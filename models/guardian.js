@@ -23,7 +23,7 @@ exports.getGuardian=function (guardianNIC,pool) {
             if (error) {
                 return reject(error)
             } else {
-                connection.query('SELECT `first_name` FROM `applicant` WHERE `guardian_nic_no` = ?', guardianNIC, function (err, rows) {
+                connection.query('SELECT * FROM `guardian` WHERE `guardian_nic_no` = ?', guardianNIC, function (err, rows) {
                     if (err) {
                         return reject(err);
                     } else {
