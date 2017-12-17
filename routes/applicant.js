@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('../config/db');
 var schoolmodel = require('../models/applicant');
+var guardianmodel=require('../models/guardian');
 
 module.exports = function(app, express, pool, applicantmodel){
 
@@ -31,7 +32,7 @@ module.exports = function(app, express, pool, applicantmodel){
     //check whether there is an existing guardian
     router.post('/check_guardian_availability', function (req, res, next) {
         console.log("Guardian NIC: " + req.body.guardian_nic);
-        applicantmodel.getGuardians(req.body.guardian_nic,pool).then(function (rows){
+       guardianmodel.getGuardian(req.body.guardian_nic,pool).then(function (rows){
             console.log(rows[0]);
             if(rows[0]== null){
                 console.log('no guardian');
