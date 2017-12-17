@@ -61,6 +61,24 @@ module.exports = function(app, express, pool, schoolmodel){
 
     });
 
+    router.get('/update_school', function (req, res, next) {
+        //console.log(req.bo.guardian_nic_no);
+        // res.send('Check Console.')
+        schoolmodel.getschoolName(pool).then(function (rows) {
+            res.render(
+                'schoolDetailUpdate', {
+                    title: 'Applicant School Details',
+                    // guardian: app.locals.guardian,
+                    // applicant: app.locals.applicant,
+                    dropdownValues: rows
+                });
+        });
+        //res.redirect('/privileges');
+
+    });
+
+
+
     router.post('/removeschool', function(req, res, next){
         schoolmodel.remove(
             req.body.name,
@@ -68,9 +86,26 @@ module.exports = function(app, express, pool, schoolmodel){
             res.redirect('/users/userprofile/' + req.user.username);
         });
 
+    router.post('/updateschool', function(req, res, next){
 
+        res.render('schoolDetailUpdate2',{name:req.body.name});
+    });
 
-
+    router.post('/updating_school', function(req, res, next){
+        {
+            schoolmodel.update(req.body.name,
+                req.body.username,
+                req.body.school_buddhism,
+                req.user.school_christianity,
+                req.body.school_islamic,
+                req.body.school_hindu,
+                req.body.school_others,
+                pool);
+            req.session.destroy(function(err){
+                res.redirect('/users/userprofile/' + req.user.username);
+            });
+        }
+    });
 
     return router;
 }
