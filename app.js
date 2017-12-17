@@ -10,6 +10,7 @@ var hbs = require('hbs');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
+var nodemailer = require('nodemailer');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
@@ -123,7 +124,7 @@ app.use('/applicant', applicantRoutes);
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
 //     console.log(rows);
 // });
-
+// require('./config/mailing')(nodemailer);
 //End of Testing Area.
 
 // catch 404 and forward to error handler
