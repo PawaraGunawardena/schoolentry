@@ -4,9 +4,7 @@
     <div style="width: 60%; text-align: left; padding-left: 60px; padding-right: 66px;padding-bottom: 40px;" >
         <form action="/guardian_details" method="post">
             <div class="form-group">
-                <label for="guardian_nic" class="left">NIC No:</label>
-                <input type="number" class="form-control" name="guardian_nic" required>
-
+                <input type="hidden" class="form-control" name="guardian_nic" value={{nic}}>
             </div>
 
             <div class="form-group">

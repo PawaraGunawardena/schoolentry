@@ -34,3 +34,24 @@ exports.getApplicantsForGuardian=function (guardianNIC,pool) {
     }
 
 }
+
+exports.getGuardians=function (guardianNIC,pool) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT `first_name` FROM `guardian` WHERE `guardian_nic_no`= ?',guardianNIC, function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+
+}
