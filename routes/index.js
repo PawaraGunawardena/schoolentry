@@ -80,6 +80,8 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         );
     });
 
+
+
     // router.get('/view_applicant_details', authenticationMiddleware(), function (req, res, next) {
     //     res.render('view-applicant-details', {
     //             title: 'Applicant Details',

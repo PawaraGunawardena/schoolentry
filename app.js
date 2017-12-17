@@ -7,7 +7,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var hbs = require('hbs');
-var nodemailer = require('nodemailer');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
@@ -15,7 +14,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
-var mailer = require('./config/mailing');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
