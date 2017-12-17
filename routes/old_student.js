@@ -23,7 +23,7 @@ module.exports = function(app, express, pool, oldstudentmodel){
             req.body.guardian_nic_no,
             pool);
         // res.render('applicant-details',{username: req.user.username});
-        res.redirect('/oldstudents');
+        res.redirect('/oldstudents_school');
         //res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
     });
     return router;
