@@ -14,3 +14,23 @@ exports.insert = function (applicant ,pool, done) {
         connection.release();
     });
 };
+exports.getApplicantsForGuardian=function (guardianNIC,pool) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT `applicant_id`,`first_name`,`last_name`,`date_of_birth`,`age`,`nationality`,`religion`,`gender` FROM `applicant` WHERE `guardian_nic_no` = ?',guardianNIC, function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+
+}
