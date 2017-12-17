@@ -79,7 +79,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
             });
         }else{
             console.log('Password mismatch!!!');
-            res.redirect('/update');
+            res.redirect('/users/update');
         }
     });
 
