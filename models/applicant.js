@@ -6,7 +6,7 @@ var async = require('async');
 exports.insert = function (applicant ,pool) {
     pool.getConnection(function (err, connection) {
         if(err) throw err;
-        console.log(applicant);
+        
         var query = connection.query('INSERT INTO applicant SET ?, age = (TIMESTAMPDIFF(YEAR,?,CURDATE()))', [applicant, applicant.date_of_birth], function (error, results) {
             if(error) throw error;
         });
