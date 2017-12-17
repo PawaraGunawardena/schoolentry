@@ -63,7 +63,8 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
                 applicant_id: app.locals.applicant.applicant_id,
                 medium: req.body.medium,
                 distance: req.body.distance_to_school,
-                school_id: rows[0].school_id
+                school_id: rows[0].school_id,
+                category: req.body.category
             };
             applicantmodel.insertApplicantSchoolDetails(appliedSchool, pool);
         });

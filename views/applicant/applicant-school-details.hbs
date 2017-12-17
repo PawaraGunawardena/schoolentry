@@ -15,7 +15,7 @@
                     </select>
                 </div>
             </div>
-
+            <br>
             <div class="form-group">
                 <label for="medium"> Medium </label>
                 <div class="dropdown" id="medium">
@@ -26,10 +26,20 @@
                     </select>
                 </div>
             </div>
-
+            <br>
             <div class="form-group">
                 <label for="distance_to_school" class="left">Distance to the School</label>
                 <input type="number" class="form-control" name="distance_to_school" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="category"> Application Based On </label>
+                <div class="dropdown" id="medium">
+                    <select id="option_base" name="category"  data-component="dropdown">
+                        <option value="Distance"> On Distance Base </option>
+                        <option value="Old Student"> On Old Student Base </option>
+                    </select>
+                </div>
             </div>
             <br>
             <button type="Submit" class="btn btn-default">Submit</button>
