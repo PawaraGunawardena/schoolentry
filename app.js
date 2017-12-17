@@ -125,6 +125,8 @@ app.use('/applicant', applicantRoutes);
 var oldschoolroute = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
 app.use('/oldstudents', oldschoolroute);
 
+// var oldschool_student_route = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+// app.use('/oldstudents', oldschool_student_route);
 //Testing Area
 
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){

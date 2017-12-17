@@ -1,6 +1,7 @@
 var express = require('express');
 var db = require('../config/db');
 var oldstudentmodel = require('../models/oldstudents');
+var oldstudentmodel1 = require('../models/oldstudents_school');
 var path = require('path');
 
 module.exports = function(app, express, pool, oldstudentmodel){
@@ -8,6 +9,10 @@ module.exports = function(app, express, pool, oldstudentmodel){
     //schools index route
     router.get('/', function(req, res){
         res.render('oldstudents');
+    });
+
+    router.get('/oldstudents_school', function(req, res, next){
+        res.render('oldstudent_school');
     });
 
     router.post('/old_student_details', function (req, res, next) {
@@ -23,7 +28,19 @@ module.exports = function(app, express, pool, oldstudentmodel){
             req.body.guardian_nic_no,
             pool);
         // res.render('applicant-details',{username: req.user.username});
-        res.redirect('/oldstudents_school');
+        res.render('oldstudents_school',{adm_no:req.body.admission_no});
+        //res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+    });
+
+    router.post('/old_student_school_details', function (req, res, next) {
+        oldstudentmodel1.insert(
+            req.body.admission_no,
+            req.body.school_name,
+            req.body.date_of_admission,
+            req.body.medium,
+            pool);
+        // res.render('applicant-details',{username: req.user.username});
+        res.render('oldstudents');
         //res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
     });
     return router;
