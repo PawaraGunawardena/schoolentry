@@ -125,7 +125,7 @@ app.use('/applicant', applicantRoutes);
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
 //     console.log(rows);
 // });
-// require('./config/mailing')(nodemailer);
+require('./config/mailing')(nodemailer);
 //End of Testing Area.
 
 // catch 404 and forward to error handler

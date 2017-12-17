@@ -16,7 +16,7 @@ module.exports = function (nodemailer, data) {
         from: 'moeofficeclerk@gmail.com', // sender address
         to: 'dasun.15@cse.mrt.ac.lk', // list of receivers
         subject: 'Accepted lists', // Subject line
-        html: '<p>Your html here</p>'// plain text body
+        html: '<p>Your mail goes here</p>'// plain text body
     };
 
 

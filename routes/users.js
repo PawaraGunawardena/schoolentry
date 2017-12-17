@@ -18,21 +18,41 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         res.sendFile(path.join(__dirname, '/../pages/loginpage.html'));
     });
 
-    router.get('/signup', function (req, res, next) {
+    router.get('/school_insert', function (req, res, next) {
+       res.render('school_insert');
+    });
+
+    router.get('/signup', authenticationMiddleware() ,function (req, res, next) {
         res.render('signup');
     });
 
+    router.post('/school_insert', function(req, res, next){
+        var school_name = req.body.school_name;
+        usermodel.getSchoolID(school_name, pool).then(function(rows){
+            usermodel.insertSchool(app.locals.username, app.locals.school_officer_post, rows[0].school_id, pool);
+        });
+
+         res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+    });
+
     router.post('/signup', function (req, res, next) {
-        req.logout();
-        if(req.body.password == req.body.confirmpassword) {
-            //usermodel.insert('pavan', 'pavan', 'school_clerk','abc@email.com','T', connectionPool);
-            // usermodel.insert(2, 'dilan','dilan','moe_officer','email','T',connectionPool);
-            usermodel.insert(req.body.username,  req.body.password, req.body.user_type,  req.body.email, 'T' ,pool);
-            res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));    //Try to redirect this to users' page
-        } else {
-            console.log('Password mismatch!')
-            // alert('Password Mismatch!');
-            res.redirect('/signup');
+        // req.logout();
+
+        if(req.body.password == req.body.confirmpassword){
+            
+            usermodel.insert(req.body.username, req.body.password, req.body.user_type, req.body.email, 'T', pool);
+
+            if(req.body.user_type == "principal" || req.body.user_type == "school_admin" || req.body.user_type == "school_clerk"){
+                app.locals.username = req.body.username;
+                app.locals.school_officer_post = req.body.user_type;
+                res.redirect('/users/school_insert');
+            }else{
+                res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+            }
+
+        }else{
+            console.log('Password Mismatch!');
+             res.redirect('/signup');
         }
     });
 

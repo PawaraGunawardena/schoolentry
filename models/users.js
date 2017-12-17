@@ -126,6 +126,39 @@ exports.getUserInfo = function (username, pool) {
   }
 };
 
+exports.getSchoolID = function (schoolName, pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM school WHERE name=?', schoolName, function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
+exports.insertSchool = function (username, post, school_id, pool) {
+    var user = {officer_username: username, school_officer_post: post, school_id: school_id};
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        var query = connection.query('INSERT INTO officer_school SET ?', user, function (error, results) {
+            if(error) throw error;
+        });
+        console.log('Insert query: ' + query.sql);
+        console.log('Users Inserted!');
+        connection.release();
+    });
+};
+
 //This is a test function.
 exports.test = function (username, done) {
    pool.getConnection(function (err, connection) {
