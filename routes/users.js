@@ -75,7 +75,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         if(req.body.newpassword == req.body.confirmpassword){
             usermodel.update(req.user.username, req.body.username, req.body.newpassword,req.user.password,req.body.oldpassword, req.body.email, pool);
             req.session.destroy(function(err){
-                res.redirect('/login');
+                res.redirect('/users/login');
             });
         }else{
             console.log('Password mismatch!!!');
