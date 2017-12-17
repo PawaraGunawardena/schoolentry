@@ -36,7 +36,8 @@ app.set('views',
         path.join(__dirname, 'views/applicant'),
         path.join(__dirname, 'views/schools'),
         path.join(__dirname, 'views/school_clerk'),
-        path.join(__dirname, 'views/oldstudents')
+        path.join(__dirname, 'views/oldstudents'),
+        path.join(__dirname, 'views/privileges')
     ]
 );
 app.set('view engine', 'hbs');
@@ -123,6 +124,9 @@ app.use('/applicant', applicantRoutes);
 
 var oldschoolroute = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
 app.use('/oldstudents', oldschoolroute);
+
+// var oldschoolroute = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+// app.use('/oldstudents', oldschoolroute);
 
 // var oldschool_student_route = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
 // app.use('/oldstudents', oldschool_student_route);
