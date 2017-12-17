@@ -229,7 +229,25 @@ exports.getusername = function (pool, done) {
         });
     }
 };
-
+exports.getusername_principle = function (pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM users WHERE user_type = "school_admin" OR user_type = "school_clerk"', function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
 exports.privilege = function (username, able_to_access, pool, done) {
     {
 
