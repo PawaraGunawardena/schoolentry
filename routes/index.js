@@ -97,6 +97,16 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
         res.redirect('/applicant_details');
     });
 
+    router.get('/applicant_school_details', function (req, res, next) {
+        applicantmodel.getSchoolName(pool).then(function(rows){
+
+            res.render('applicant-school-details', {
+                title: 'Applicant School Details',
+                guardian: app.locals.guardian
+            },{dropdownVals: rows});
+        })
+    });
+
     function authenticationMiddleware() {
         return function (req, res, next) {
             if (req.isAuthenticated()) {
