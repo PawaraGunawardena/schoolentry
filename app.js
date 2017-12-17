@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var hbs = require('hbs');
+var nodemailer = require('nodemailer');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
@@ -14,6 +15,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
+var mailer = require('./config/mailing');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
@@ -23,6 +25,9 @@ var oldstudentmodel = require('./models/oldstudents');
 var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
+var HandlebarsIntl = require('handlebars-helper-intl');
+
+HandlebarsIntl.registerWith(hbs);
 
 // view engine setup
 app.set('views',
@@ -119,6 +124,13 @@ app.use('/oldstudents', oldStudentRoutes);
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
 app.use('/applicant', applicantRoutes);
 
+//Testing Area
+
+// usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
+//     console.log(rows);
+// });
+
+//End of Testing Area.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

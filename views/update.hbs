@@ -1,0 +1,26 @@
+{{#section 'head'}}
+    <link rel="stylesheet" href="/stylesheets/login.css">
+{{/section}}
+
+<div class="container">
+    <br>
+    <br>
+    <form class="form-signin" method="POST" action = "/users/update" enctype="application/x-www-form-urlencoded">
+        <h2 class="form-signin-heading">Update User Data</h2>
+        <label for="usernm" class="sr-only">Username</label>
+        <input type="text" id="usernm" class="form-control" name="username" placeholder="{{username}}" required autofocus>
+        <label for="usernm" class="sr-only">Email</label>
+        <input type="text" id="userID" class="form-control" name="email" placeholder="{{email}}" required autofocus>
+        <label for="pass" class="sr-only">Old Password</label>
+        <input type="password" id="pass" class="form-control" name="oldpassword" placeholder="Old Password" required>
+        <label for="pass" class="sr-only">New Password </label>
+        <input type="password" id="confpass" class="form-control" name="newpassword" placeholder="New Password" required>
+        <label for="pass" class="sr-only">Confirm Password </label>
+        <input type="password" id="confpass" class="form-control" name="confirmpassword" placeholder="Confirm Password" required>
+        <br>
+        <br>
+
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add User</button>
+    </form>
+</div> <!-- /container -->

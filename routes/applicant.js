@@ -11,15 +11,18 @@ module.exports = function(app, express, pool, applicantmodel){
     });
 
     router.get('/view_applicant_details', function (req, res, next) {
-        res.render('view-applicant-details', {
-                title: 'Applicant Details',
-                username: req.user.username //Important
-            }
-        );
+        res.render('view-applicant-details');
     });
 
     router.post('/view_applicant', function (req, res, next) {
         console.log("Guardian NIC: " + req.body.guardian_nic);
+        applicantmodel.getApplicantsForGuardian(req.body.guardian_nic,pool).then(function (rows){
+            console.log(rows[0]);
+            res.render('view-applicant-details',{rows:rows});
+        }).catch(function (err) {
+            console.log(err);
+        });
+
     });
 
     return router;
