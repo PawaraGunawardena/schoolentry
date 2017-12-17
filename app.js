@@ -19,6 +19,7 @@ var users = require('./routes/users');
 var usermodel = require('./models/users');
 var guardianmodel = require('./models/guardian');
 var schoolmodel = require('./models/school');
+var oldstudentmodel = require('./models/oldstudents');
 var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
@@ -111,8 +112,8 @@ app.use('/users', userRoutes);
 var schoolRoutes = require('./routes/schools')(app, express, connectionPool , schoolmodel);
 app.use('/school', schoolRoutes);
 
-var oldStudentRoutes = require('./routes/old_student')(app, express, connectionPool , schoolmodel);
-app.use('/oldstudent', oldStudentRoutes);
+var oldStudentRoutes = require('./routes/old_student')(app, express, connectionPool , oldstudentmodel);
+app.use('/oldstudents', oldStudentRoutes);
 
 //Setting applicant controller.
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);

@@ -1,40 +1,39 @@
 <!--SCHOOL CLERK'S PAGE-->
-
 <div class="row">
 
     <!--Navbar-->
-    <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-        <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/guardian_details">Enter Applicant Details</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Interview Letters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">School Qualified Letters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/old_student_details">Old Students Details</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/applicant/view_applicant_details">View Applicant Details</a>
-            </li>
-        </ul>
-    </nav>
+    <!--<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">-->
+        <!--<ul class="nav nav-pills flex-column">-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/guardian_details">Enter Applicant Details</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="#">Interview Letters</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="#">School Qualified Letters</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/oldstudent/old_student_details">Old Students Details</a>-->
+            <!--</li>-->
+            <!--<li class="nav-item">-->
+                <!--<a class="nav-link" href="/applicant/view_applicant_details">View Applicant Details</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</nav>-->
     <!--/ Navbar-->
     <!--/ Main page content-->
 
-</div>
+
 
     <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
 
         <h4>Add Old Student Details Here</h4>
 
-        <form action = "oldstudent/old_student_details" method="post">
+        <form action = "/oldstudents/old_student_details" method="post">
 
             Admission No :
             <input type="text" name="admission_no"><br/><br/>
@@ -45,37 +44,42 @@
             Last Name :
             <input type="text" name="last_name"><br/><br/>
 
-            Date of Birth :
-            <input type="text" name="date_of_birth"><br/><br/>
-
+            Date of Birth
+            <input type="date" class="form-control" name="date_of_birth" required><br/>
             <div class="nationality_dev" id="nationality">
                 <select id="province_dropdown_id" name="nationality_dropdown"  data-component="dropdown">
-                    <option value = "province">Sinhala</option>
-                    <option value = "province">Tamil</option>
-                    <option value = "province"> Muslim</option>
-                    <option value = "province"> Berger</option>
+                    <option value = "Select National">Select National</option>
+                    <option value = "Sinhala">Sinhala</option>
+                    <option value = "Tamil">Tamil</option>
+                    <option value = "Muslim"> Muslim</option>
+                    <option value = "Berger"> Berger</option>
                 </select>
-            </div>
+            </div><br/><br/>
 
             <div class="religion_dev" id="religion">
                 <select id="religion_dropdown_id" name="religion_dropdown"  data-component="dropdown">
-                    <option value = "province">Buddhism</option>
-                    <option value = "province">Christianity</option>
-                    <option value = "province">Islam</option>
-                    <option value = "province">Hindu</option>
-                    <option value = "province">Other</option>
+                    <option value = "Select Religion">Select Religion</option>
+                    <option value = "Buddhism">Buddhism</option>
+                    <option value = "Christianity">Christianity</option>
+                    <option value = "Islam">Islam</option>
+                    <option value = "Hindu">Hindu</option>
+                    <option value = "Other">Other</option>
                 </select>
-            </div>
+            </div><br/><br/>
 
             Gender :
-            <input type=”radio” name=”gender”  value = "Male">
-            <input type=”radio” name=”gender”  value = "Female">
+            <div class="religion_dev" id="religion">
+                <select id="religion_dropdown_id" name="gender"  data-component="dropdown">
+                    <option value = "Male">Male</option>
+                    <option value = "Female">Female</option>
+                </select>
+            </div><br/><br/>
 
             Guardian NIC No :
             <input type="text" name="guardian_nic_no"><br/><hr>
 
-            <button type="submit" class="btn btn-primary" name = "btn_submit_school">Submit new school</button>
-            <button type="submit" class="btn btn-primary" name = "btn_cancel_school">Cancel</button>
+            <button type="submit" class="btn btn-primary" name = "btn_submit_old_student">Submit new school</button>
+            <button type="submit" class="btn btn-primary" name = "btn_cancel_old_student">Cancel</button>
 
         </form>
     </main>
@@ -83,3 +87,5 @@
 
 </div>
 <br />
+
+</div>

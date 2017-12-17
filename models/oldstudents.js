@@ -35,7 +35,8 @@ exports.insert = function(old_student_id,
         nationality:nationality,
         religion:religion ,
         gender:gender,
-        guardian_nic_no:guardian_nic_no};
+        guardian_nic_no:guardian_nic_no
+    };
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
