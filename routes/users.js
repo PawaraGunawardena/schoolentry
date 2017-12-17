@@ -89,7 +89,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
 
     router.post('/remove', function(req, res, next){
         usermodel.getUserInfo(req.body.username, pool).then(function(rows){
-            if(rows[0].username !=  null){
+            if(rows[0] !=  undefined){
                 usermodel.remove(req.body.username,pool);
                  res.redirect('/users/userprofile/' + req.user.username);
             }else{
