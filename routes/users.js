@@ -19,7 +19,9 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     });
 
     router.get('/school_insert', function (req, res, next) {
-       res.render('school_insert');
+        usermodel.getSchoolName(pool).then(function (rows) {
+            res.render('school_insert', {rows:  rows});
+        });
     });
 
     router.get('/signup', authenticationMiddleware() ,function (req, res, next) {

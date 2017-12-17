@@ -146,6 +146,26 @@ exports.getSchoolID = function (schoolName, pool, done) {
     }
 };
 
+exports.getSchoolName = function (pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM school', function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
 exports.insertSchool = function (username, post, school_id, pool) {
     var user = {officer_username: username, school_officer_post: post, school_id: school_id};
     pool.getConnection(function (err, connection) {
