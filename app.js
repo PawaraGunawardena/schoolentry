@@ -28,13 +28,12 @@ HandlebarsIntl.registerWith(hbs);
 
 // view engine setup
 app.set('views',
-        [
+    [
         path.join(__dirname, 'views'),
         path.join(__dirname, 'views/users'),
         path.join(__dirname, 'views/applicant'),
-        path.join(__dirname, 'views/schools'),
-            path.join(__dirname, 'views/school_clerk')
-        ]
+        path.join(__dirname, 'views/schools')
+    ]
 );
 app.set('view engine', 'hbs');
 
