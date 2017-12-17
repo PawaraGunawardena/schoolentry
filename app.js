@@ -15,7 +15,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
@@ -134,6 +133,9 @@ app.use('/oldstudents', oldschoolroute);
 // });
 // require('./config/mailing')(nodemailer);
 //End of Testing Area.
+// usermodel.getUserNames(connectionPool).then(function (rows) {
+//    console.log(rows);
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
