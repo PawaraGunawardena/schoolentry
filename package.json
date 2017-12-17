@@ -30,6 +30,7 @@
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",
     "mysql-json": "^0.1.2",
+    "nodemailer": "^4.4.1",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",

@@ -117,6 +117,13 @@ app.use('/school', schoolRoutes);
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
 app.use('/applicant', applicantRoutes);
 
+//Testing Area
+
+// usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
+//     console.log(rows);
+// });
+
+//End of Testing Area.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

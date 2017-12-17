@@ -31,7 +31,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
             res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));    //Try to redirect this to users' page
         } else {
             console.log('Password mismatch!')
-            alert('Password Mismatch!');
+            // alert('Password Mismatch!');
             res.redirect('/signup');
         }
     });
@@ -39,7 +39,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     //authenticationMiddleware() is a route handler which acts as a express middleware.
     //Check for Express Routing documentation for more details.
     router.get('/userprofile/:username', authenticationMiddleware(), function (req, res, next) {
-        usermodel.getUserType(req.params.username, pool).then(function (rows) {
+        usermodel.getUserInfo(req.params.username, pool).then(function (rows) {
             res.render(rows[0].user_type , {
                 username: req.params.username.charAt(0).toUpperCase() + req.params.username.slice((1)),
                 title: 'Welcome, '+ req.params.username
@@ -63,6 +63,40 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         req.session.destroy(function (err) {
             res.redirect('/')
         });
+    });
+
+    router.get('/update',authenticationMiddleware(), function(req, res, next){
+        usermodel.getUserInfo(req.user.username, pool).then(function(rows){
+            res.render('update', {username: req.user.username,password: req.user.password, email: rows[0].email});
+        });
+    });
+
+    router.post('/update', function(req, res, next){
+        if(req.body.newpassword == req.body.confirmpassword){
+            usermodel.update(req.user.username, req.body.username, req.body.newpassword,req.user.password,req.body.oldpassword, req.body.email, pool);
+            req.session.destroy(function(err){
+                res.redirect('/users/login');
+            });
+        }else{
+            console.log('Password mismatch!!!');
+            res.redirect('/users/update');
+        }
+    });
+
+    router.get('/remove', authenticationMiddleware(), function(req, res, next){
+        res.render('userremove');
+    });
+
+    router.post('/remove', function(req, res, next){
+        usermodel.getUserInfo(req.body.username, pool).then(function(rows){
+            if(rows[0].username !=  null){
+                usermodel.remove(req.body.username,pool);
+                 res.redirect('/users/userprofile/' + req.user.username);
+            }else{
+                res.render('remove', {faliureMessage: "There is no users in the database matching with the username which you have provided."});
+            }
+        });
+        // usermodel.remove(req.user.username, pool);
     });
 
     //This will prevent the user from going to the userprofile route without logging in.

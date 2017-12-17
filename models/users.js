@@ -37,23 +37,6 @@ exports.insert = function(username, password, user_type,email,able_to_access, po
             });
             console.log('Insert query: ' + query.sql);
             console.log('Users Inserted!');
-
-            // if(user_type == 'moe_officer'){
-            //     var moe_officer = {
-            //         officer_moe_id:
-            //         id, post: 'moe_officer',
-            //         first_name: first_name,
-            //         last_name: last_name,
-            //         date_of_birth: dob,
-            //         nationality: nationality,
-            //         religion: religion,
-            //         gender: gender
-            //     };
-            //     var query2 = connection.query('INSERT INTO officer_ministry_of_education SET ?', moe_officer, function (err, results) {
-            //        if(err) throw err;
-            //     });
-            // };
-
             connection.release();
         });
     });
@@ -72,19 +55,40 @@ exports.remove = function (username, pool, done) {
 };
 
 //Update user profiles.
-exports.update = function (oldusername, username, password, pool, done) {
-    bcrypt.hash(password, 8, function (err, hash) {
-        pool.getConnection(function (err, connection) {
-            if (err) throw err;
-            var query = connection.query('UPDATE users SET username = ?, password = ? WHERE username = ?', [username, hash, oldusername], function (error, results) {
-                if(error) throw error;
-            });
-            console.log('Update query: ' + query.sql);
-            console.log('Users updated!');
-            connection.release();
+exports.update = function (oldusername, newUsername, newpassword, currentpassword, enteredpassword, email, pool, done) {
+    bcrypt.compare(enteredpassword, currentpassword, function(err, res){
+        console.log(res);
+        bcrypt.hash(newpassword, 8 , function(error, hash){
+            if(error) throw err;
+            if(res){
+                pool.getConnection(function (err, connection) {
+                    if (err) throw err;
+                    var query = connection.query('UPDATE users SET username = ?, password = ?, email = ? WHERE username = ?', [newUsername, hash, email, oldusername], function (error, results) {
+                        if(error) throw error;
+                    });
+                    console.log('Update query: ' + query.sql);
+                    console.log('Users updated!');
+                    connection.release();
+                });
+            }else{
+                console.log('Password not correct!');   
+            }
         });
     });
 };
+
+exports.remove = function(username, pool, done){
+    //Make sure to verify that a user cannot remove himself.
+    //Make sure he enters an existing user.
+    pool.getConnection(function(err, connection){
+        if(err) throw err;
+        var query = connection.query('DELETE FROM users WHERE username = ?', username, function(error, results){
+           if(error) throw error; 
+        });
+        console.log('Delete query: ' + query.sql);
+        console.log('User deleted!');
+    });
+}
 
 // This query is not that much important.
 //This query was written just to take an idea on how to convert a SELECT query into a JSON format.
@@ -102,7 +106,7 @@ exports.view = function (pool, done) {
 };
 
 //Promise based functionality for data retrievals from the db.
-exports.getUserType = function (username, pool) {
+exports.getUserInfo = function (username, pool) {
   return new Promise(fn);
   function fn(resolve, reject) {
       pool.getConnection(function (error, connection) {
