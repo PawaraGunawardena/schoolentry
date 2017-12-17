@@ -54,6 +54,48 @@ exports.insert = function(school_id,
     });
 };
 
+exports.getGuardian=function (guardianNIC,pool) {
+    return new Promise(fn);
+
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if (error) {
+                return reject(error)
+            } else {
+                connection.query('SELECT `first_name` FROM `applicant` WHERE `guardian_nic_no` = ?', guardianNIC, function (err, rows) {
+                    if (err) {
+                        return reject(err);
+                    } else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+}
+
+exports.getSchoolID=function (username,pool) {
+    return new Promise(fn);
+
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if (error) {
+                return reject(error)
+            } else {
+                connection.query('SELECT `school_id` FROM `officer_school` WHERE  officer_username = ?', username, function (err, uids) {
+                    if (err) {
+                        return reject(err);
+                    } else {
+                        connection.release();
+                        return resolve(uids);
+                    }
+                })
+            }
+        });
+    }
+}
+
 exports.getschoolName = function (pool, done) {
     return new Promise(fn);
     function fn(resolve, reject) {
