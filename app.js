@@ -29,7 +29,8 @@ app.set('views',
         path.join(__dirname, 'views'),
         path.join(__dirname, 'views/users'),
         path.join(__dirname, 'views/applicant'),
-        path.join(__dirname, 'views/schools')
+        path.join(__dirname, 'views/schools'),
+        path.join(__dirname, 'views/oldstudents')
     ]
 );
 app.set('view engine', 'hbs');
@@ -109,6 +110,9 @@ app.use('/users', userRoutes);
 //Setting school controllers.
 var schoolRoutes = require('./routes/schools')(app, express, connectionPool , schoolmodel);
 app.use('/school', schoolRoutes);
+
+var oldStudentRoutes = require('./routes/old_student')(app, express, connectionPool , schoolmodel);
+app.use('/oldstudent', oldStudentRoutes);
 
 //Setting applicant controller.
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
