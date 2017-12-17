@@ -21,6 +21,7 @@ var users = require('./routes/users');
 var usermodel = require('./models/users');
 var guardianmodel = require('./models/guardian');
 var schoolmodel = require('./models/school');
+var oldstudentmodel = require('./models/oldstudents');
 var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
@@ -35,7 +36,8 @@ app.set('views',
         path.join(__dirname, 'views/users'),
         path.join(__dirname, 'views/applicant'),
         path.join(__dirname, 'views/schools'),
-        path.join(__dirname, 'views/school_clerk')
+        path.join(__dirname, 'views/school_clerk'),
+        path.join(__dirname, 'views/oldstudents')
     ]
 );
 app.set('view engine', 'hbs');
@@ -119,6 +121,9 @@ app.use('/school', schoolRoutes);
 //Setting applicant controller.
 var applicantRoutes = require('./routes/applicant')(app, express, connectionPool, applicantmodel);
 app.use('/applicant', applicantRoutes);
+
+var oldschoolroute = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
+app.use('/oldstudents', oldschoolroute);
 
 //Testing Area
 
