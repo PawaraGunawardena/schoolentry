@@ -56,12 +56,18 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
     });
 
     router.post('/applicant_school_details', function (req, res, next) {
+        applicantmodel.getSchoolID(req.body.school_name, pool).then(function (rows) {
 
-        var appliedSchool = {
-            applicant_id: app.locals.applicant.applicant_id,
-            medium: req.body.medium,
-            distance: req.body.distance
-        };
+            var appliedSchool = {
+                applicant_id: app.locals.applicant.applicant_id,
+                medium: req.body.medium,
+                distance: req.body.distance,
+                school_id: rows[0].school_id
+            }
+
+        });
+        applicantmodel.insertApplicantSchoolDetails(appliedSchool, pool);
+        res.redirect('/user/userprofile/' + req.user.username);
         // console.log(applicant.date_of_birth);
         // applicantmodel.insert(applicant,pool);
         // // res.render('applicant-details',{username: req.user.username});

@@ -3,7 +3,7 @@ var bcrypt = require('bcryptjs');
 var mysqlJson = require('mysql-json');
 var async = require('async');
 
-exports.insert = function (applicant ,pool, done) {
+exports.insert = function (applicant, pool, done) {
     pool.getConnection(function (err, connection) {
         if(err) throw err;
         var query = connection.query('INSERT INTO applicant SET ?, age = (TIMESTAMPDIFF(YEAR,?,CURDATE()))', [applicant, applicant.date_of_birth], function (error, results) {
@@ -11,6 +11,18 @@ exports.insert = function (applicant ,pool, done) {
         });
         console.log('Insert Query: ' + query);
         console.log('Applicant Inserted!');
+        connection.release();
+    });
+};
+
+exports.insertApplicantSchoolDetails = function (appliedSchool, pool, done) {
+    pool.getConnection(function (err, connection) {
+        if(err) throw err;
+        var query = connection.query('INSERT INTO applicant_applies_school SET ?', appliedSchool, function (error, result) {
+            if(error) throw error;
+        });
+        console.log('Insert Query: ' + query);
+        console.log('Applicant school Inserted!');
         connection.release();
     });
 };
@@ -55,3 +67,23 @@ exports.getSchoolName = function (pool, done) {
         });
     }
   };
+
+exports.getSchoolID = function (schoolName, pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM school WHERE name=?', schoolName, function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
