@@ -15,6 +15,7 @@ exports.insert = function (applicant, pool, done) {
     });
 };
 
+
 exports.insertApplicantSchoolDetails = function (appliedSchool, pool, done) {
     pool.getConnection(function (err, connection) {
         if(err) throw err;

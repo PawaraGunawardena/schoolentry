@@ -62,17 +62,13 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
             var appliedSchool = {
                 applicant_id: app.locals.applicant.applicant_id,
                 medium: req.body.medium,
-                distance: req.body.distance,
+                distance: req.body.distance_to_school,
                 school_id: rows[0].school_id
-            }
-
+            };
+            applicantmodel.insertApplicantSchoolDetails(appliedSchool, pool);
         });
-        applicantmodel.insertApplicantSchoolDetails(appliedSchool, pool);
-        res.redirect('/user/userprofile/' + req.user.username);
-        // console.log(applicant.date_of_birth);
-        // applicantmodel.insert(applicant,pool);
-        // // res.render('applicant-details',{username: req.user.username});
-        // res.redirect('/applicant_school_details')
+
+        res.redirect('/users/userprofile/' + req.user.username);
     });
 
     router.get('/register', function (req, res, next) {
