@@ -35,6 +35,7 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
             gender: req.body.gender,
             guardian_nic_no: req.body.guardian_nic
         };
+        app.locals.applicant = applicant;
         console.log(applicant.date_of_birth);
         applicantmodel.insert(applicant,pool);
         // res.render('applicant-details',{username: req.user.username});
@@ -48,30 +49,27 @@ module.exports = function (app, express, passport, pool, usermodel, guardianmode
             res.render('applicant-school-details', {
                 title: 'Applicant School Details',
                 guardian: app.locals.guardian,
+                applicant: app.locals.applicant,
                 dropdownValues: rows
             });
         });
 
     });
 
-    // router.post('/applicant_school_details', function (req, res, next) {
-    //
-    //     var appliedSchool = {
-    //         applicant_id: req.body.applicant_id,
-    //         first_name: req.body.first_name,
-    //         last_name: req.body.last_name,
-    //         date_of_birth: req.body.dob,
-    //         // age: req.body.age,
-    //         nationality: req.body.nationality,
-    //         religion: req.body.religion,
-    //         gender: req.body.gender,
-    //         guardian_nic_no: app.locals.guardian.guardian_nic_no
-    //     };
-    //     console.log(applicant.date_of_birth);
-    //     applicantmodel.insert(applicant,pool);
-    //     // res.render('applicant-details',{username: req.user.username});
-    //     res.redirect('/applicant_school_details')
-    // });
+    router.post('/applicant_school_details', function (req, res, next) {
+        applicantmodel.getSchoolID(req.body.school_name, pool).then(function (rows) {
+
+            var appliedSchool = {
+                applicant_id: app.locals.applicant.applicant_id,
+                medium: req.body.medium,
+                distance: req.body.distance_to_school,
+                school_id: rows[0].school_id
+            };
+            applicantmodel.insertApplicantSchoolDetails(appliedSchool, pool);
+        });
+
+        res.redirect('/users/userprofile/' + req.user.username);
+    });
 
     router.get('/register', function (req, res, next) {
         res.render('register', {title: 'Register'});

@@ -15,6 +15,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 //Require db file which is inside the config file.
 var db = require('./config/db');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var usermodel = require('./models/users');
