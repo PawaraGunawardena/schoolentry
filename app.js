@@ -22,6 +22,9 @@ var schoolmodel = require('./models/school');
 var applicantmodel = require('./models/applicant');
 var connectionPool = db.pool;
 var app = express();
+var HandlebarsIntl = require('handlebars-helper-intl');
+
+HandlebarsIntl.registerWith(hbs);
 
 // view engine setup
 app.set('views',
