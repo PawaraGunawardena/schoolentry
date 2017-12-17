@@ -126,6 +126,27 @@ exports.getUserInfo = function (username, pool) {
   }
 };
 
+//Promise based functionality for data retrievals from the db.
+exports.getUserNames = function (pool) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM users',function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
 exports.getSchoolID = function (schoolName, pool, done) {
     return new Promise(fn);
     function fn(resolve, reject) {

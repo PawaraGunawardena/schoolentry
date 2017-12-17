@@ -106,7 +106,9 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     });
 
     router.get('/remove', authenticationMiddleware(), function(req, res, next){
-        res.render('userremove');
+        usermodel.getUserNames(pool).then(function (rows) {
+            res.render('userremove',{rows: rows});
+        });
     });
 
     router.post('/remove', function(req, res, next){
