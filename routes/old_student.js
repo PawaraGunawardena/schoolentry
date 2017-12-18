@@ -2,13 +2,31 @@ var express = require('express');
 var db = require('../config/db');
 var oldstudentmodel = require('../models/oldstudents');
 var oldstudentmodel1 = require('../models/oldstudents_school');
+var guardianmodel = require('../models/guardian');
 var path = require('path');
 
 module.exports = function(app, express, pool, oldstudentmodel){
     var router = express.Router();
     //schools index route
-    router.get('/', function(req, res, next){
-        res.render('oldstudents');
+
+    // router.get('/', function(req, res, next){
+    //     res.render('oldstudents');
+    // });
+
+    router.get('/', function (req, res, next) {
+        //console.log(req.bo.guardian_nic_no);
+        // res.send('Check Console.')
+        guardianmodel.getGuardianNIC(pool).then(function (rows) {
+            res.render(
+                'oldstudents', {
+                    title: 'Applicant School Details',
+                    // guardian: app.locals.guardian,
+                    // applicant: app.locals.applicant,
+                    dropdownValues: rows
+                });
+        });
+        //res.redirect('/privileges');
+
     });
 
     router.get('/oldstudents_school', function(req, res, next){

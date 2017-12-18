@@ -44,7 +44,7 @@
             Last Name :
             <input type="text" name="last_name"><br/><br/>
 
-            Date of Birth
+            Date of Birth :
             <input type="date" class="form-control" name="date_of_birth" required><br/>
             <div class="nationality_dev" id="nationality">
                 <select id="province_dropdown_id" name="nationality_dropdown"  data-component="dropdown">
@@ -56,9 +56,10 @@
                 </select>
             </div><br/><br/>
 
+            Select Religion:
             <div class="religion_dev" id="religion">
                 <select id="religion_dropdown_id" name="religion_dropdown"  data-component="dropdown">
-                    <option value = "Select Religion">Select Religion</option>
+                    <!--<option value = "Select Religion">Select Religion</option>-->
                     <option value = "Buddhism">Buddhism</option>
                     <option value = "Christianity">Christianity</option>
                     <option value = "Islam">Islam</option>
@@ -76,7 +77,16 @@
             </div><br/><br/>
 
             Guardian NIC No :
-            <input type="text" name="guardian_nic_no"><br/><hr>
+            <div class="form-group">
+                <label for="guardian_nic_no"></label>
+                <div class="dropdown" id="guardian_nic_no">
+                    <select name="guardian_nic_no" class="form-control" id="guardian_nic_id">
+                        {{#each dropdownValues}}
+                            <option value="{{this.guardian_nic_no}}">{{this.guardian_nic_no}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary" name = "btn_submit_old_student">Submit</button>
             <!--

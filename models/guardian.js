@@ -34,5 +34,24 @@ exports.getGuardian=function (guardianNIC,pool) {
             }
         });
     }
-}
+};
 
+exports.getGuardianNIC = function (pool) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM guardian',function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    };
+};
