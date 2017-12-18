@@ -3,6 +3,7 @@ var db = require('../config/db');
 var oldstudentmodel = require('../models/oldstudents');
 var oldstudentmodel1 = require('../models/oldstudents_school');
 var guardianmodel = require('../models/guardian');
+var schoolmodel = require('../models/school');
 var path = require('path');
 
 module.exports = function(app, express, pool, oldstudentmodel){
@@ -29,9 +30,18 @@ module.exports = function(app, express, pool, oldstudentmodel){
 
     });
 
-    router.get('/oldstudents_school', function(req, res, next){
-        res.render('oldstudent_school');
-    });
+    // router.get('/old_student_details', function(req, res, next){
+    //     //res.render('oldstudent_school');
+    //     schoolmodel.getschoolName(pool).then(function (rows) {
+    //         res.render(
+    //             'old_student_details', {
+    //                 title: 'Applicant School Details',
+    //                 // guardian: app.locals.guardian,
+    //                 // applicant: app.locals.applicant,
+    //                 dropdownValues: rows
+    //             });
+    //     });
+    // });
 
     router.post('/old_student_details', function (req, res, next) {
         oldstudentmodel.insert(
@@ -45,15 +55,26 @@ module.exports = function(app, express, pool, oldstudentmodel){
             req.body.gender,
             req.body.guardian_nic_no,
             pool);
+
+        schoolmodel.getschoolName(pool).then(function (rows) {
+            res.render(
+                'oldstudents_school', {
+                    title: 'Applicant School Details',
+                    adm_no:req.body.admission_no,
+                    // guardian: app.locals.guardian,
+                    // applicant: app.locals.applicant,
+                    dropdownValues: rows
+                });
+        });
         // res.render('applicant-details',{username: req.user.username});
-        res.render('oldstudents_school',{adm_no:req.body.admission_no});
+        //res.render('oldstudents_school',{adm_no:req.body.admission_no});
         //res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
     });
 
     router.post('/old_student_school_details', function (req, res, next) {
         oldstudentmodel1.insert(
             req.body.admission_no,
-            req.body.school_name,
+            req.body.name,
             req.body.date_of_admission,
             req.body.medium,
             pool);
