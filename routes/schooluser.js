@@ -30,7 +30,7 @@ module.exports = function (app,express,pool,usermodel,schoolmodel,schoolusermode
                     }
 
                     console.log(marksForDistance);
-                    res.render('enter-marks',{applicant_id:rows[0].applicant_id,medium:rows[0].medium,distance:rows[0].distance,school_id:rows[0].school_id,marks_for_distance:marksForDistance});
+                    res.render('enter-marks',{applicant_id:rows[0].applicant_id,medium:rows[0].medium,distance:rows[0].distance,school_id:rows[0].school_id,marks_for_distance:marksForDistance,guardianNic:rows[0].guardian_nic_no});
                 }
 
             });
@@ -60,7 +60,7 @@ module.exports = function (app,express,pool,usermodel,schoolmodel,schoolusermode
 
     router.post('/enter_marks', function(req,res,next) {
         marksForSibling=parseInt(0);
-        oldstudentmodel.getOldStudentID(req.body.sibling_id,pool).then(function (rows) {
+        oldstudentmodel.getOldStudentID(req.body.sibling_id,req.body.guardian_nic,pool).then(function (rows) {
             if(rows[0]==null){
                 marksForSibling=0;
             }

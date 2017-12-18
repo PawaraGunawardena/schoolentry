@@ -49,7 +49,7 @@ exports.insert = function(old_student_id,
     });
 };
 
-exports.getOldStudentID=function (student_id,pool) {
+exports.getOldStudentID=function (student_id,guardian_nic,pool) {
     return new Promise(fn);
 
     function fn(resolve, reject) {
@@ -57,7 +57,7 @@ exports.getOldStudentID=function (student_id,pool) {
             if (error) {
                 return reject(error)
             } else {
-                connection.query('SELECT * FROM old_student WHERE  old_student_id = ?', student_id, function (err, rows) {
+                connection.query('SELECT * FROM old_student WHERE  old_student_id =? AND guardian_nic_no= ?', [student_id,guardian_nic], function (err, rows) {
                     if (err) {
                         return reject(err);
                     } else {
