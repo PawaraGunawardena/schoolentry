@@ -50,10 +50,12 @@ module.exports = function (app,express,pool,usermodel,schoolmodel,schoolusermode
             console.log(rows[0]);
             console.log(req.user.username);
             max_limit= rows[0].max_value_of_grade_one_entries;
+            console.log(max_limit);
+            schoolmodel.getselectedlist(rows[0].school_id,max_limit,pool).then(function (results) {
+                console.log(results);
+                res.render('selected-list',{user:results});
+            });
         });
-        console.log(max_limit)
-
-        res.render('selected-list');
     });
 
     router.post('/enter_marks', function(req,res,next) {

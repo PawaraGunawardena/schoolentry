@@ -161,7 +161,27 @@ exports.getvacancies = function (school_username,pool, done) {
             if(error){
                 return reject(error)
             }else {
-                connection.query('SELECT * FROM school left outer join officer_school USING(school_id) WHERE officer_school.officer_username= ?', function (err, rows) {
+                connection.query('SELECT * FROM school left outer join officer_school USING(school_id) WHERE officer_school.officer_username= ?',school_username, function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
+exports.getselectedlist = function (schoolid,max_limit,pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT `applicant_id`,`first_name`,`last_name`,`total_marks` FROM `marks` WHERE `school_id`=? order by `total_marks` desc limit ?',[schoolid,max_limit], function (err, rows) {
                     if(err) {
                         return reject(err);
                     }else {
