@@ -134,7 +134,9 @@ var schooluserRoutes = require('./routes/schooluser')(app, express, connectionPo
 app.use('/schooluser', schooluserRoutes);
 
 //Testing Area
-
+schoolmodel.getselectedlist('1',20,connectionPool).then(function (rows) {
+    console.log(rows);
+});
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){
 //     console.log(rows);
 // });
