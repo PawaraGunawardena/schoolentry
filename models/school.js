@@ -54,4 +54,128 @@ exports.insert = function(school_id,
     });
 };
 
+exports.getGuardian=function (guardianNIC,pool) {
+    return new Promise(fn);
 
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if (error) {
+                return reject(error)
+            } else {
+                connection.query('SELECT `first_name` FROM `applicant` WHERE `guardian_nic_no` = ?', guardianNIC, function (err, rows) {
+                    if (err) {
+                        return reject(err);
+                    } else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+}
+
+exports.getSchoolID=function (username,pool) {
+    return new Promise(fn);
+
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if (error) {
+                return reject(error)
+            } else {
+                connection.query('SELECT `school_id` FROM `officer_school` WHERE  officer_username = ?', username, function (err, uids) {
+                    if (err) {
+                        return reject(err);
+                    } else {
+                        connection.release();
+                        return resolve(uids);
+                    }
+                })
+            }
+        });
+    }
+}
+
+exports.getschoolName = function (pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM school', function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
+exports.remove = function(name, pool, done){
+    //Make sure to verify that a user cannot remove himself.
+    //Make sure he enters an existing user.
+    pool.getConnection(function(err, connection){
+        if(err) throw err;
+        var query = connection.query('DELETE FROM school WHERE name = ?', name, function(error, results){
+            if(error) throw error;
+        });
+        console.log('Delete query: ' + query.sql);
+        console.log('School deleted!');
+    });
+}
+
+
+exports.select = function(name, pool, done){
+    //Make sure to verify that a user cannot remove himself.
+    //Make sure he enters an existing user.
+    pool.getConnection(function(err, connection){
+        if(err) throw err;
+        var query = connection.query('SELECT * FROM school WHERE name = ?', name, function(error, results){
+            if(error) throw error;
+        });
+        console.log('Select query: ' + query.sql);
+        console.log('School selected!');
+    });
+}
+
+exports.update = function (name,
+                           max_value_of_grade_one_entries,
+                           buddhism_percentage,
+                           christianity_percentage,
+                           islam_percentage,
+                           Hindu_percentage,
+                           religion_others_percentage,
+                           pool,
+                           done) {
+    {
+
+        var school = {max_value_of_grade_one_entries:max_value_of_grade_one_entries,
+            buddhism_percentage:buddhism_percentage,
+            christianity_percentage:christianity_percentage,
+            islam_percentage:islam_percentage,
+            Hindu_percentage:Hindu_percentage,
+            religion_others_percentage:religion_others_percentage,
+            name:name};
+
+        console.log(res);
+        {
+            if(error) throw err;
+            if(res){
+                pool.getConnection(function (err, connection) {
+                    if (err) throw err;
+                    var query = connection.query('UPDATE school SET ? WHERE name = ?',school , function (error, results) {
+                        if(error) throw error;
+                    });
+                    console.log('Update query: ' + query.sql);
+                    console.log('School updated!');
+                    connection.release();
+                });
+            }
+        }
+    }
+};

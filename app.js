@@ -22,6 +22,7 @@ var guardianmodel = require('./models/guardian');
 var schoolmodel = require('./models/school');
 var oldstudentmodel = require('./models/oldstudents');
 var applicantmodel = require('./models/applicant');
+var schoolusermodel = require('./models/schooluser');
 var connectionPool = db.pool;
 var app = express();
 var HandlebarsIntl = require('handlebars-helper-intl');
@@ -35,6 +36,8 @@ app.set('views',
         path.join(__dirname, 'views/users'),
         path.join(__dirname, 'views/applicant'),
         path.join(__dirname, 'views/schools'),
+        path.join(__dirname, 'views/privileges'),
+        path.join(__dirname, 'views/school_admin'),
         path.join(__dirname, 'views/school_clerk'),
         path.join(__dirname, 'views/oldstudents')
     ]
@@ -126,6 +129,10 @@ app.use('/oldstudents', oldschoolroute);
 
 // var oldschool_student_route = require('./routes/old_student')(app, express, connectionPool, oldstudentmodel);
 // app.use('/oldstudents', oldschool_student_route);
+//Setting applicant controller.
+var schooluserRoutes = require('./routes/schooluser')(app, express, connectionPool,usermodel,schoolmodel, schoolusermodel);
+app.use('/schooluser', schooluserRoutes);
+
 //Testing Area
 
 // usermodel.getUserInfo('dilan', connectionPool).then(function(rows){

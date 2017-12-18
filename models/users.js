@@ -83,7 +83,7 @@ exports.remove = function(username, pool, done){
     pool.getConnection(function(err, connection){
         if(err) throw err;
         var query = connection.query('DELETE FROM users WHERE username = ?', username, function(error, results){
-           if(error) throw error; 
+            if(error) throw error;
         });
         console.log('Delete query: ' + query.sql);
         console.log('User deleted!');
@@ -208,4 +208,57 @@ exports.test = function (username, done) {
            console.log('Password is: ' + rows[0].password); //This will return the password.
         });
     });
+};
+
+exports.getusername = function (pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM users WHERE user_type = "moe_officer" OR user_type = "principal"', function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+exports.getusername_principle = function (pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM users WHERE user_type = "school_admin" OR user_type = "school_clerk"', function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+exports.privilege = function (username, able_to_access, pool, done) {
+    {
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err;
+            var query = connection.query('UPDATE users SET able_to_access = ? WHERE username = ?', [ able_to_access, username], function (error, results) {
+                if(error) throw error;
+            });
+            console.log('Update query: ' + query.sql);
+            console.log('Privilege Changed!');
+            connection.release();
+        });
+    }
 };

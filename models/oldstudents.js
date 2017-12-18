@@ -49,4 +49,25 @@ exports.insert = function(old_student_id,
     });
 };
 
+exports.getOldStudentID=function (student_id,pool) {
+    return new Promise(fn);
+
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if (error) {
+                return reject(error)
+            } else {
+                connection.query('SELECT * FROM old_student WHERE  old_student_id = ?', student_id, function (err, rows) {
+                    if (err) {
+                        return reject(err);
+                    } else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
 

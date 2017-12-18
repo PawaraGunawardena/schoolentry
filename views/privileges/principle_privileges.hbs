@@ -1,0 +1,35 @@
+<div class="row">
+
+    <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+
+        <h4>Change User Privileges</h4>
+
+        <form action = "/users/change_principle_privilege" method="post">
+
+            <div class="form-group">
+                <label for="user_name"> User name </label>
+                <div class="dropdown" id="school_name">
+                    <select name="user_name" class="form-control" id="user_option">
+                        {{#each dropdownValues}}
+                            <option value="{{this.username}}">{{this.username}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="using_privilege" id="privilege_id">
+                <select id="privilege_dropdown" name="privilege_drop"  data-component="dropdown">
+                    <option value = "T">True</option>
+                    <option value = "F">False</option>
+                </select>
+            </div><br/><br/>
+
+            <button type="submit" class="btn btn-primary" name = "btn_submit_school">Submit new school</button>
+            <!--<button type="submit" class="btn btn-primary" name = "btn_cancel_school">Cancel</button>-->
+
+        </form>
+    </main>
+    <!--/ Main page content-->
+
+</div>
+<br />
