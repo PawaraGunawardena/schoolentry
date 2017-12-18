@@ -39,8 +39,21 @@
 
 
             School Name :
-            <input type="text" name="school_name"><br/><br/>
-            
+            <!--<input type="text" name="school_name"><br/><br/>-->
+            <div class="form-group">
+                <label for="school_name"></label>
+
+                <div class="form-group">
+                    <label for="name">Select the school to update</label>
+                    <div class="dropdown" id="name">
+                        <select name="name" class="form-control" id="delete_school">
+                            {{#each dropdownValues}}
+                                <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="date_of_admission" class="left">Date of Admission</label>
