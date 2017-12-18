@@ -7,7 +7,7 @@ module.exports = function(app, express, pool, applicantmodel){
 
     var router = express.Router();
 
-    router.get('/view_applicant', function(req, res){
+    router.get('/view_applicant', function(req, res, next){
         console.log("sadsd");
     });
 

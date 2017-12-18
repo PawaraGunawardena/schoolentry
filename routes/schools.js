@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = function(app, express, pool, schoolmodel){
     var router = express.Router();
     //schools index route
-    router.get('/', function(req, res){
+    router.get('/', function(req, res, next){
         res.render('schoolindex');
     });
 
