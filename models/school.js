@@ -143,6 +143,37 @@ exports.select = function(name, pool, done){
     });
 }
 
+/*exports.getvacancies = function(school_username, pool, done){
+    pool.getConnection(function(err, connection){
+        if(err) throw err;
+        var query = connection.query('SELECT * FROM school left outer join officer_school USING(school_id) WHERE officer_school.officer_username= ?', school_username, function(error, results){
+            if(error) throw error;
+        });
+        console.log('Select query: ' + query.sql);
+        console.log('vacancies selected!');
+    });
+};*/
+
+exports.getvacancies = function (school_username,pool, done) {
+    return new Promise(fn);
+    function fn(resolve, reject) {
+        pool.getConnection(function (error, connection) {
+            if(error){
+                return reject(error)
+            }else {
+                connection.query('SELECT * FROM school left outer join officer_school USING(school_id) WHERE officer_school.officer_username= ?', function (err, rows) {
+                    if(err) {
+                        return reject(err);
+                    }else {
+                        connection.release();
+                        return resolve(rows);
+                    }
+                })
+            }
+        });
+    }
+};
+
 exports.update = function (name,
                            max_value_of_grade_one_entries,
                            buddhism_percentage,
