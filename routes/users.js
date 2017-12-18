@@ -25,7 +25,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     });
 
     router.get('/signup', authenticationMiddleware() ,function (req, res, next) {
-        res.render('signup');
+        res.render('signup',{username: req.user.username});
     });
 
     router.post('/school_insert', function(req, res, next){
@@ -33,8 +33,9 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         usermodel.getSchoolID(school_name, pool).then(function(rows){
             usermodel.insertSchool(app.locals.username, app.locals.school_officer_post, rows[0].school_id, pool);
         });
-
-         res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+        res.redirect('/users/logout');
+        // req.logout();
+        //  res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
     });
 
     router.post('/signup', function (req, res, next) {
@@ -49,7 +50,8 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
                 app.locals.school_officer_post = req.body.user_type;
                 res.redirect('/users/school_insert');
             }else{
-                res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
+                res.redirect('/users/logout');
+                // res.sendFile(path.join(__dirname + '/../pages/loginpage.html'));
             }
 
         }else{
@@ -87,7 +89,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
         });
     });
 
-    router.get('/update',authenticationMiddleware(), function(req, res, next){
+    router.get('/update', function(req, res, next){
         usermodel.getUserInfo(req.user.username, pool).then(function(rows){
             res.render('update', {username: req.user.username,password: req.user.password, email: rows[0].email});
         });
@@ -96,6 +98,7 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
     router.post('/update', function(req, res, next){
         if(req.body.newpassword == req.body.confirmpassword){
             usermodel.update(req.user.username, req.body.username, req.body.newpassword,req.user.password,req.body.oldpassword, req.body.email, pool);
+            req.logout();
             req.session.destroy(function(err){
                 res.redirect('/users/login');
             });
@@ -107,18 +110,15 @@ module.exports = function (app, express, passport, pool, usermodel, LocalStrateg
 
     router.get('/remove', authenticationMiddleware(), function(req, res, next){
         usermodel.getUserNames(pool).then(function (rows) {
-            res.render('userremove',{rows: rows});
+            res.render('userremove',{rows: rows, username: req.user.username});
         });
     });
 
     router.post('/remove', function(req, res, next){
         usermodel.getUserInfo(req.body.username, pool).then(function(rows){
-            if(rows[0] !=  undefined){
-                usermodel.remove(req.body.username,pool);
-                 res.redirect('/users/userprofile/' + req.user.username);
-            }else{
-                res.render('remove', {faliureMessage: "There is no users in the database matching with the username which you have provided."});
-            }
+            usermodel.remove(req.body.username,pool);
+            res.redirect('/users/userprofile/' + req.user.username);
+
         });
         // usermodel.remove(req.user.username, pool);
     });

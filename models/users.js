@@ -71,7 +71,7 @@ exports.update = function (oldusername, newUsername, newpassword, currentpasswor
                     connection.release();
                 });
             }else{
-                console.log('Password not correct!');   
+                console.log('Password not correct!');
             }
         });
     });
